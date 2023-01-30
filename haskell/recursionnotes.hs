@@ -1,0 +1,48 @@
+-- inClass 1.26
+--
+-- into
+-- many functions can be defined int erms of other
+-- functions
+--
+-- evaluated by a stepwise process
+-- of applying functions to their
+-- arguments
+--
+-- Functions definted in terms of themselves
+-- are called recursice
+--
+--fac 3
+--3 * fac 2
+--3 * (2 * fac 1)
+--3 * (2 * (1 * fac 0))
+--3 * (2 *(1 * 1))
+--etc
+--
+--why recursion?
+--some functions are simpler to define
+--in terms of other functions
+--
+--however some functions can naturally
+--be defined in terms of themselves
+--
+--properties of functions defined using
+--recursion can be proved using the simple
+--but powerful mathmatical technique of
+--induction
+--
+--Recursion on Lists
+--product :: Num a => [a] -> a
+--product [] = 1
+--product (n:ns) = n * product ns
+--
+--product maps the empty list to 1
+--and any non-empty list to its head
+--multiplied by the product of its tail
+--
+--preorder (root, left, right) {
+--	visit root
+--	preorder left
+--	preorder right
+--}pseudocode;
+--
+--

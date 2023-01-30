@@ -1,0 +1,126 @@
+--1.26.22
+--Set Comprehensions
+-- comrehension notation in math
+-- is used to make new sets from old sets
+--
+--
+-- in haskell
+-- [x^2 | x <- [1..5]]
+--
+--the part x<- [1..5] is called the generator
+--its like a loop, it states how to generate 
+--values for x
+--
+--comprehensions can have multiple generators, serpated
+--by commas:
+--
+--[(x,y) | x <- [1,2,3], y <-[4,5]]
+--
+--changing the order of the generators changes
+--the order of the elements in the final llist
+--
+--multiple generators are like nested loops
+--with later gnerators as more deeply nested loops
+--whose variables change more frequesntly
+--
+--[(x, y) | y <- [4,5], x <- [1,2,3]]
+--
+--dependant generators
+--later generators can depend on the variables that are
+--introduced by earlier generators
+--
+--[(x,y) | x <- [1..3], y <- [x..3]]
+--
+--using a dependant generator we can define
+--the library function that concatenates a list
+--of lists
+--
+--concat :: [[a]] -> [a]
+--concat xxs = [x | xs <- xss, x <- xs]
+--
+--guards
+--list comprehension can use guards tor estric the values
+--produced by earlier generaors
+--
+--[x | x <- [1..10], even x]
+--
+--using a guard we can define a function that maps
+--a positive integer to its list of factors
+--
+--factors :: Int -> [Int]
+--factors n =
+--	[x | x <-[1..n], n `mod` x == 0]
+--
+-- prime:: Int -> Bool
+-- prime n = factors n == [1,n]
+--
+-- primes :: Int -> [Int]
+-- primes n = [x | x <- [2..n], prime x]
+--
+--
+--
+-- The Zip Function
+-- A useful library function is zip which maps
+-- two lists to a list of pairs of their corresponding
+-- elements
+--
+-- zip :: a -> [b] -> [(a,b)]
+-- zip [] _ = []
+-- zip _ [] = []
+--
+-- zip (x:xs) (y:ys) =  (x,y): zip xs ys
+--
+-- only goes to the shorter of the two lists
+--
+-- zip3' _ _ [] = []
+-- zip3' _ [] _ = []
+-- zip3' [] _ _ = []
+-- zip3' (x:xs) (y:ys) (z:zs) = (x,y,z) zip3' xs ys zs
+--
+-- using zip we cand define a function returns the list
+-- of all pairs of adjacent elements from a list
+--
+--pairs :: [a] -> [(a,a)]
+--pairs xs = zip xs (tail xs)
+--
+-- using pairs we cand define a function that decides
+-- if the elements in a list are sorted
+--
+-- sorted:: Ord => [a] -> Bool
+-- sorted xs = and [x <= y | (x,y) <- pairs xs]
+-- 
+-- using zip we can define a function that returns
+-- the list of all positions of a value in a list
+--
+-- positions :: Eq a => a -> [a] -> [Int]
+-- positions x xs =
+-- 	[i| (x',i) <- zip xs [0..], x == x']
+--
+-- A string comprehension
+-- a string is a sequence of characters enclosed
+-- in double quptes. Internally however strings
+-- are represented as lists of characters
+--
+-- because  strings are just lists any polymorphic
+-- function can opeate on a list or a string
+--
+-- similarly list comprehension can be used to define
+-- functions on strings such as counting how
+-- many times a character occurs in a string
+--
+-- count :: Char -> String -> Int
+-- count x xs = lendth [x' | x' <- xs, x == x']
+--
+--
+-- Exercises
+-- A triple (x,y,z) of positive integers
+-- is called paythagorean if x^2 + y^2 = z^2
+-- using a list comprehension define a function
+-- pyths :: Int -> [(Int,Int,Int)]
+
+pyths n = [(x,y,z) | x <- [1..n], y <- [1..n], z <- [1..n], x^2 + y^2 == z^2]
+ 
+
+-- the scalar product of two lists of integers
+-- xs and ys of length n is give by the sum of
+-- 
