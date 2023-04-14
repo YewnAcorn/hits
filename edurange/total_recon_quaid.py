@@ -46,7 +46,7 @@ def find_octet():
 
 octet = find_octet()
 
-hosts = [client] 
+hosts = [client]
 
 def quaid(dest_addr, dest_port, local_addr, local_port, hosts):
 
@@ -54,11 +54,11 @@ def quaid(dest_addr, dest_port, local_addr, local_port, hosts):
     jhost = hosts[last_host]
 
     client_transport_n = jhost.get_transport()
-    dest_addr_n = (dest_addr, dest_port) 
+    dest_addr_n = (dest_addr, dest_port)
     local_addr_n = (local_addr, local_port)
     client_channel_n = client_transport_n.open_channel("direct-tcpip", dest_addr_n, local_addr_n)
 
-    nhost = paramiko.SSHClient() 
+    nhost = paramiko.SSHClient()
     nhost.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     nhost.connect(port=dest_port, hostname=dest_addr, username=u, password=p, sock=client_channel_n)
     hosts.append(nhost)
@@ -71,16 +71,23 @@ def quaid(dest_addr, dest_port, local_addr, local_port, hosts):
     stdout_n = _stdout.read()
     f.write(str(stdout_n))
     f.close()
-    
 
 
 
+#level 0
 quaid(f"{octet}.0.0.4", 444, f"{octet}.0.0.2", edu_port, hosts)
+#level 1
 quaid(f"{octet}.0.0.101", 22, f"{octet}.0.0.4", 444, hosts)
+#level 2
 quaid(f"{octet}.0.0.24", 666, f"{octet}.0.0.101", 22, hosts)
+#level 3
 quaid(f"{octet}.0.217.33", 22, f"{octet}.0.0.24", 666, hosts)
+#level 4
 quaid(f"{octet}.0.204.64", 123, f"{octet}.0.217.33", 22, hosts)
-quaid(f"{octet}.0.234.8", 632, f"{octet}.0.204.64", 123, hosts)
-
-
+#level 5
+quaid(f"{octet}.0.216.144", 2345, f"{octet}.0.204.64", 123, hosts)
+#level 6
+quaid(f"{octet}.0.234.8", 632, f"{octet}.0.216.144", 2345, hosts)
+#level 7
+quaid(f"{octet}.0.250.5", 1938, f"{octet}.0.234.8", 632, hosts)
 
