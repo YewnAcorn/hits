@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-script = "sshpy.py"
+script="total_recon_quaid.py"
 
 for i in $(seq 1 5); do
 	mkdir "p$i.logs"
