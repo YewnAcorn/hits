@@ -1,4 +1,5 @@
-# winter_23
-code for CARTER GUNDERSON for winter quarter 2023
+# greatest hits
+code for CARTER GUNDERSON for job applications
 
-edurange, haskell, machine learning, and networking
+proof that I know what I'm doing. From my projects in:
+haskell, machine learning, and networking
