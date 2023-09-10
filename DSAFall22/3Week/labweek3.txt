@@ -1,0 +1,5 @@
+I worked alone and did the game of life in c
+I submitted it to github
+I learned a lot about how to do arrays in c
+and how c can take command line arguments
+

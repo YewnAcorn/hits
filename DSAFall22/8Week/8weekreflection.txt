@@ -1,0 +1,11 @@
+This week I learned the beginnings of how to use threads to run a process in parallel
+on multiple cores. Normally having multiple cores lets more processes get done faster
+but running theads within a process can allow that single process to run faster. This
+was really challenging to understand at first since it is complex and has unfamilliar
+syntax and heady ideas. Just wrapping my mind arond the concept took so much effort
+so I had to read these chapters a couple times before I could finally start to get
+the picture. I'll probably want to go over them again in the future. I'm glad I got
+a physical copy of the book it makes reading certain parts easier and then the eBook
+is free and useful for the parts with code. My question for this week is to understand
+the differences and similarities between mutithreading and the node.js asynchronous
+callback system

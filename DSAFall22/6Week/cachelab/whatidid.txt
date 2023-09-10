@@ -1,0 +1,8 @@
+Carter Gunderson
+I forget who I worked with again
+
+basically I took the code from the book to witness the time difference
+then I had to get on to a linux machine to run valgrind so I got all
+that code onto a file in a linux container on Docker. Then installed
+valgrind. I saw the output and saw where the difference was with
+cachegrind

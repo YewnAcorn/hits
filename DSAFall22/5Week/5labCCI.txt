@@ -1,0 +1,7 @@
+I dont remember us getting to this one in class
+but from the looks of it, it would just be getting
+a variable, call it min, that compares itself to every
+new push and pop to make sure its still the min
+should be O(1), no loops or anything, just comparing min
+to the values getting pushed and popped
+

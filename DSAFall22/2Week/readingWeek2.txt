@@ -1,0 +1,28 @@
+Reading assignment Week2 DSA
+Carter Gunderson
+
+The Mythical Man-Month
+
+I read "The Programming Systems Product." It was about how much
+actually goes in to making a finished programming product. It's
+not as easy as making a little doodad in an IDE that reverses a
+string or something like that. The projects have to fit together
+and have documentation, standardization and testing. This takes time
+and we shouldn't be over-optimistic in our scheduling practices.
+
+I read the "Joys of the Craft" and the "Woes of the Craft." I really liked the
+first one. It was about how programming is magical. I was happy to see someone
+put it into words that way. I feel the same sometimes. I personally got hooked
+on programming after being a little curious about it. Before computers I was
+getting my techincal kicks working on my motorcycles and my friends' vehicles.
+I needed something in my life that was run by reality and mechanic fiddling
+was satisfying for me in that way. Once I discovered coding I realized it was
+satisfying in the same way, but I was able to get that satisfaction more
+frequently, and with less physical exertion and trips to the hardware store.
+
+As far as the woes of the craft, I anticipate the corporate environment to
+be less than enlightened in many ways. Maybe I'll just hunker down in academia.
+The business world seems insane honestly. Maybe I'll try it just to see, but
+I'll probably just end up trying to work for some educational nonprofit or something.
+
+

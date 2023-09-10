@@ -1,0 +1,9 @@
+this week we learned about callgrind, cachegrind and massif
+I had to do it on my raspberry pi which was fun to do
+stuff like that, because its remote, but also local
+Saw how callgrind breaks down each line and function call
+to show how many times it runs each line
+I was surprised to see how much is really going on
+numbers in the billions. Computers are so fast!
+I cant believe a physical machine can move that fast.
+

@@ -1,0 +1,12 @@
+questions from week 3 reading
+
+1 malloc memory is stored in the heap
+2 row-major odering means all of row 0 comes first, then all of row 1 etc
+	if you had a 3D array I think it would be all threed[0][0][i] then [0][1][i] etc
+	[i*M + j], where M is the column dimension
+3. x is static in the stack and y is dynamic in the heap
+4. array[rows][columns]
+5. redundant ignore 
+6. (void *) is the type of variable returned by malloc() unless you cast it to something else
+	like (int *) or (char *)
+7. question about the reading. So if you forget to free memory, and the program ends, how do you go back and free it? Is it too late? what happens to the memory after runtime 

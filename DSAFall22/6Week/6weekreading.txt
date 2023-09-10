@@ -1,0 +1,24 @@
+Carter Gunderson
+
+PDC - Reading Week 6 Systems
+
+1. spatial locality is when something is physically close like how the
+	registers on the main chip are physically closer than something in an external
+	hard drive
+2. Row-maor order is more efficient. Its like if you were getting books at the library
+	row-major would be finishing one book before checking out another
+	where column-major would be reading only the first chapter of a booke
+	before going back to the library, and reading the first chapter of every
+	book you inteneded to read, before going back to the first book and reading
+	the second chapter. This causes a much higher number of trips to the library
+3. L1 is the smallest and fastest cache, followed by L2 which is a bit slower and bigger
+
+4. yes
+
+5. measures cache performance
+
+
+6. is this something that only comes up in certain fields? What are those fields?
+
+
+

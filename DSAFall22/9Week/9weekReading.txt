@@ -1,0 +1,31 @@
+PDC - Reading Week 9 Systems
+
+1. What is false sharing for the cache?
+	False sharing is when multiple threads are trying to use the same
+	cacheline which bogs things down, because if you modify one cache
+	line then the other copies are going to be invalidated, so instead
+	of speeding things up, having false sharing slows things down
+
+2. What is a mutex lock and when would you use it? Give an example.
+	a mutex lock is a way to make sure that part of a program runs
+	exclusively and is not done in parallel. It is good for the part
+	of a thread that updates shared/global variables
+
+3. What is #pragma omp for?
+	its a way to get threads to do part of a for loop like we were doing
+	in these labs, but it is easier it looks like
+
+4. Questions:
+	When I tried to compile in gcc in openmp on my mac with the 
+	command: 
+	
+	$ gcc -o hello_mp hello_mp.c -fopenmp
+	
+	then I would get this error:
+
+	clang: error: unsupported option '-fopenmp'
+
+	So I looked it up and it looks like I gotta do a bunch of
+	computer stuff to make it work, I'll try that now.
+	But maybe it just doesn't work on mac like valgind dont
+	but thats what I have raspberry pi and docker for I guess.

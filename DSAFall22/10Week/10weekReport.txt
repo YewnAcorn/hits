@@ -1,0 +1,13 @@
+
+I worked with Ahman and Dominic and Mika
+We worked in class on the gitpod workspace
+we worked on getting the theads to work and
+getting gdb to show us the inner workings of
+when threads are created
+
+Good to remember how to do commandline arguments in gdb
+and interesting to see that it looks likethe main thread 
+is recycled to be used as one of the parallel threads
+because only n-1 threads are created for
+    #pragma omp parallel num_threads(n)
+

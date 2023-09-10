@@ -1,0 +1,34 @@
+
+
+
+
+
+
+1.    Which parts of memory do different threads share? Do they share the stack?
+	It looks like that different threads have their own stack
+	and they share the heap, the globals, the code, and the OS
+
+2.    Can different threads in the same process run on different cores in a multicore system?
+	yes, I think thats what they're for, right?
+
+3.    What does pthread_join() do?
+	halts the executuion until all the threads are finished, they all join up and proceed
+	together
+
+4.    For gcc, what is the command line option to link the pthread library?
+	-lpthread	
+
+5.    What is a data race or race condition? Give an example.
+	its when multithreading gives the wrong answer, an example is you have many threads
+	updating the same variable, if they update it out of order it does save time but
+	whats the point if the answer is wrong
+
+6.    What questions do you have about the reading?
+	Reading this while also learning about node.js is interesting because
+	multithreading seems like it is to take advantage of multiple cores
+	where the node,js callback system is still working as if their is
+	one core, but it uses some clever trick to get an asynchronous
+	effect where things are happening almost as if its in parallel?
+	or is it actually in parallel? I guess my question is do I understand
+	the similarities and differences more or less or am I missing it?
+

@@ -1,0 +1,31 @@
+PDC- Reading Week4 Systems
+
+1. shouldn't it be malloc(sizeof(short) * r * c)
+ or something like that
+
+2. break main
+
+3. run <command line arguments>
+
+4. goes to next line but treats a whole function call
+	as a line.
+
+5. print val
+
+6. x <memory address expression>
+
+7. print $register
+
+8. info about memory errors, trying to read or write to
+	uninitialized memory or freeing already free memory
+	or memory leaks, (allocated memory that nothing points to)
+
+9. it looks like two registers can be referenced in an instruction
+	one source and one destination
+
+10. pushes a copy of s to the top of the stack
+
+11. the base pointer or rbp is related to rsp. the book says the base pointer isnt used as much 
+	anymore but in earlier systems it helped keep track of the base of the active stack frame
+
+12. if rbp isnt used for what it used to be for what is it used for?	

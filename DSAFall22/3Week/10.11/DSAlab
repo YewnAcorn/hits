@@ -1,0 +1,40 @@
+1. Big-O For Loop
+
+int product(int a, int b)
+{
+     int sum = 0;
+     for (int i = 0; i < b; i++) {
+             sum += a;
+     }
+     return sum;
+}
+ 
+I think this one is O(b)
+
+2 Big-O While Loop
+
+int sumDigits(int n)
+{
+       int sum = 0;
+       while (n > 0) {
+                   sum += n % 10;
+                   n /= 10;
+       }
+       return sum;
+}
+
+This one should be O(log n) because the algorithm doesn't even do it n times
+
+3. Palindrome Permutation
+
+I'm thinking this one is O(n!) because it has to try a letter for every possible position
+other than the position it already is
+
+4. One Away
+
+is this one O(n)? because it only has to check each character once, so it will only
+take as long as the length n of the input?
+
+
+
+

@@ -1,0 +1,47 @@
+
+adder:	file format mach-o 64-bit x86-64
+
+Disassembly of section __TEXT,__text:
+
+0000000100003f40 <_adder2>:
+100003f40: 55                          	pushq	%rbp
+100003f41: 48 89 e5                    	movq	%rsp, %rbp
+100003f44: 89 7d fc                    	movl	%edi, -4(%rbp)
+100003f47: 8b 45 fc                    	movl	-4(%rbp), %eax
+100003f4a: 83 c0 02                    	addl	$2, %eax
+100003f4d: 5d                          	popq	%rbp
+100003f4e: c3                          	retq
+100003f4f: 90                          	nop
+
+0000000100003f50 <_main>:
+100003f50: 55                          	pushq	%rbp
+100003f51: 48 89 e5                    	movq	%rsp, %rbp
+100003f54: 48 83 ec 10                 	subq	$16, %rsp
+100003f58: c7 45 fc 00 00 00 00        	movl	$0, -4(%rbp)
+100003f5f: c7 45 f8 28 00 00 00        	movl	$40, -8(%rbp)
+100003f66: 8b 7d f8                    	movl	-8(%rbp), %edi
+100003f69: e8 d2 ff ff ff              	callq	0x100003f40 <_adder2>
+100003f6e: 89 45 f8                    	movl	%eax, -8(%rbp)
+100003f71: 8b 75 f8                    	movl	-8(%rbp), %esi
+100003f74: 48 8d 3d 2f 00 00 00        	leaq	47(%rip), %rdi          ## 0x100003faa <dyld_stub_binder+0x100003faa>
+100003f7b: b0 00                       	movb	$0, %al
+100003f7d: e8 08 00 00 00              	callq	0x100003f8a <dyld_stub_binder+0x100003f8a>
+100003f82: 31 c0                       	xorl	%eax, %eax
+100003f84: 48 83 c4 10                 	addq	$16, %rsp
+100003f88: 5d                          	popq	%rbp
+100003f89: c3                          	retq
+
+Disassembly of section __TEXT,__stubs:
+
+0000000100003f8a <__stubs>:
+100003f8a: ff 25 70 40 00 00           	jmpq	*16496(%rip)            ## 0x100008000 <dyld_stub_binder+0x100008000>
+
+Disassembly of section __TEXT,__stub_helper:
+
+0000000100003f90 <__stub_helper>:
+100003f90: 4c 8d 1d 71 40 00 00        	leaq	16497(%rip), %r11       ## 0x100008008 <__dyld_private>
+100003f97: 41 53                       	pushq	%r11
+100003f99: ff 25 61 00 00 00           	jmpq	*97(%rip)               ## 0x100004000 <dyld_stub_binder+0x100004000>
+100003f9f: 90                          	nop
+100003fa0: 68 00 00 00 00              	pushq	$0
+100003fa5: e9 e6 ff ff ff              	jmp	0x100003f90 <__stub_helper>

@@ -1,0 +1,7 @@
+this week we studied more assembly language how to use different commands to 
+examine an assembly file and about the structure of memory. I learned
+about the registers and it seems like its a whole nother language so
+it'll take some time to learn it to be fluent. Just picking my way through
+the particulars here and there. It would be cool if there was some visualization
+of how all the registers work. Maybe someone made one already I'll look into
+it.

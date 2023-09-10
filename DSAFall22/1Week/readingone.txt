@@ -1,0 +1,13 @@
+1. A MUX takes in multiple inputs and has a control input that decides which of the inputs
+to output.
+
+2. Most ALUs can perform operations like ADD, AND, OR
+
+3. A conditional jump is how if/else statements are programmed
+
+4. a function in C that takes 2 parameters would be, for example:
+
+int add(int num1, int num2)
+{
+	return (num1 + num2);
+}

@@ -1,0 +1,30 @@
+PDC Reading WEek 7 Systems
+
+Carter Gunderson
+
+Questions
+
+1. What information does callgrind provide?
+	It provides the number of instrucitons per line of code
+	and the number of times a particular function was run
+
+2. What is function inlining?
+	It puts the code from the function into main so that the
+	instructions associated with calling and returning a function
+	can be skipped. It looks like a disadvantage would be, if you
+	manually write the code with a inline function, the code will
+	be less readable and harder to change later on.
+
+3. What is loop unrolling?
+	loop unrolling is an optimization technique used by the compiler
+	it can make a loop do calcualtions in larger numbers before iterating
+	again. In this way it can avoid having to check against the loop's
+	conditions as many times or calculate those variables in the loop's
+	conditions. It is something the compiler does. Not something to do
+	manually
+
+4. Other questions
+	Is the C language used on pretty much every machine? It seems ubiquitous
+	Is gcc the compiler of choice or is it just the best one to learn on?
+
+

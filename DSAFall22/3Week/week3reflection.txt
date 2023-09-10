@@ -1,0 +1,13 @@
+This week we studied big O. I thought it was interesting because it used math.
+we learned some things from microsoft interviews and other companies.
+I didn't always know how to make the most efficient algorithm. We also learned
+about the game of life which I really liked. Stuff like that is what I like
+about computers. Some weird math thing that does something cool and makes
+you think about life a little bit. Neat. 
+It made me think: that since a new cell being born is, in the game of life, 
+a dead cell coming back from the dead, then is being born in a sense coming
+back from the dead? I thought about it and it kind of is, right? "Before I was
+born I was dead." makes sense. But then "when I die I will be dead, which is
+something I've been before *and gotten out of before.*" that is new, to me
+I mean it makes sense, but its not how I thought about it before. Cool. Thanks
+John Conway.

@@ -1,0 +1,13 @@
+PDC - Lab Week5
+Carter Gunderson
+
+This one I worked alone. I made a program in C that was
+simple and disassembled it and read the file put by objdump -d
+to see assembly stuff. Then I installed docker and did the same
+thing in a linux environment. Pretty cool. I'm amazed how fast
+it could just spin up a whole linux environment inside my mac.
+I have questions about docker, but its like all the questions,
+so I think I'll just watch some tutorials and get to know the app
+so I can have more relevant questions. Code is on github
+
+

@@ -1,0 +1,10 @@
+PDC - Reading Week 10 Systems
+
+1. A memory barrier is
+
+2. A semaphore is kind of like a mutex lock, I think? It is a primitive
+	variable that counts how many shared resources are left for a 
+	group of threads to access. Every time a thread accesses one
+	the count goes down. It can be used to make threads within
+	a process, as well as between separate processes.
+

@@ -1,0 +1,12 @@
+Turning in late, so again not remembering who I worked with
+We got the hellothreads.c and scalarmultiply.c from the book
+and tinkered around with them. Hellothreads was cool to see
+threads for the first time and scalarmultiply using an id
+to break the job into chunks is pretty mind blowing. Feel like
+I'm finally starting to get to the level where I can get a sense
+for how things are really done on computers in the real world.
+maybe? Question is, I can see my computer has 2 physical cores and
+has 2 hypertheads per core, so really 4 cores, but at any given time
+it seems like cores 0 and 2 are running most of the work and cores
+1 and 4 are picking up the slack, is there a specific reason for that
+or is it just how things happen to play out ends up that way?

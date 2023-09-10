@@ -1,0 +1,12 @@
+Week 7 Reflection
+
+Carter Gunderson
+
+This week we learned about C and how to use a makefile and how to link files
+together. We also worked on learning how to make a recursive tree using
+preorder and post order. This week I also got the first prototype of my
+group project to work. So now the program goes through the entire process
+at least at a rudimentary level, which is pretty satisfying, but there is
+still more to do.
+
+

@@ -1,0 +1,22 @@
+Lab week 9
+
+This weeks lab that we did on thursday dec. 1, I ended up working in a breakout room with
+Ahman and Emily.
+
+We worked on making a program in c that would add up elements in an array using pthreads
+to have the program simultaneously get the sums of different parts of the array, and
+then fail because of the data race condition. We got to about that point when class ended
+
+Then after class I finished adding the mutex lock so that it would work correctly
+it pretty much works now but sometimes it can be off slightly because of the way
+it divides the work. If theres 100 elements in the array and 3 threads then
+sometimes it ends up doing some integer division wrong and there's an extra element
+but I got rid of the wrong answers caused by the race condition
+
+learned how to spawn worker threads and join them, how to create a mutex and lock it
+and unlock it, and how to place a mutex lock in the code so that it doesn't slow everything
+way down.
+
+question would be how to deal with the integer division problem for dividing work in weird fractions?
+
+code is on github

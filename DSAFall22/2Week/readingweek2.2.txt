@@ -1,0 +1,12 @@
+1. a struct is a data type that can hold variables of different types
+
+2. a global variable is a variable in scope of the whole program. they are declared before main
+	they should be avoided for being a security risk
+
+3 x is a variable of type int and p is a pointer of type int *
+
+4 &x means the addess in memory where x is stored
+
+5 malloc allocates space in the heap
+
+

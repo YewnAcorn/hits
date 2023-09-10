@@ -1,0 +1,26 @@
+
+    Will the string "hello" fit in an array char[5]? Explain.
+
+    	The string will techinically fit but it should realy have one extra space for the ‘\0’
+	terminating character.
+
+    Will the following code fragment generate a compiler error?
+
+    int array[20];
+    array[20] = 1;
+
+		No it wont it will write 1 to whatever is in that memory location and it could
+		mess things up that way.
+
+    If a function takes an array as a parameter, how does it know the size of the array?
+
+		You have to enter the size as another parameter.
+
+    What is the risk of using strcpy()?
+	
+	strcpy() takes for granted a lot of things like the presence of termination characters
+	and the size of the strings being appropriate. So if user input was the string being copied
+	it could be way too long and overwrite whatever memory it comes in contact with.
+
+
+

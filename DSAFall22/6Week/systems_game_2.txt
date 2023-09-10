@@ -1,0 +1,30 @@
+Carter Gunderson
+
+1 int x = 20
+  int y = 3
+  int *ptr1 = &x  (20)
+  int *ptr2 = ptr1 (20)
+  *ptr1 = 6
+   ptr1 = &y
+   what is the value of *ptr2? 
+		Ok I think its 30 because it pointed to the spot
+   		where x was and then didn't get changed after that
+
+2 so st is pointing to the base of the array of 100 ints
+ so the address of the 16th element should be 16*4 address locations
+ higher? or lower? well, its malloc which is on the heap. I think the
+ stack grows by going to lower numbers so maybe the heap grows
+ by going to higher numbers so 16*4 = 64
+ and 0xfff120 + 64 is 0xfff160 ? I think that makes sense
+
+3 this instruction it adds the literal number 0x2 into the register
+  %eax
+
+4 I think the instructions can have 2 registers
+  a source and a destination
+
+5 (void *) is a pointer to an unspecified type
+  its what malloc returns unless otherwise cast
+
+6 I would have to look this one up
+ 

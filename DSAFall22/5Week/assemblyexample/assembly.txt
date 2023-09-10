@@ -1,0 +1,36 @@
+
+assemb:	file format mach-o 64-bit x86-64
+
+Disassembly of section __TEXT,__text:
+
+0000000100003f60 <_A>:
+100003f60: 55                          	pushq	%rbp
+100003f61: 48 89 e5                    	movq	%rsp, %rbp
+100003f64: 48 83 ec 10                 	subq	$16, %rsp
+100003f68: bf 02 00 00 00              	movl	$2, %edi
+100003f6d: e8 1e 00 00 00              	callq	0x100003f90 <_B>
+100003f72: 89 45 fc                    	movl	%eax, -4(%rbp)
+100003f75: 8b 45 fc                    	movl	-4(%rbp), %eax
+100003f78: 83 c0 03                    	addl	$3, %eax
+100003f7b: 48 83 c4 10                 	addq	$16, %rsp
+100003f7f: 5d                          	popq	%rbp
+100003f80: c3                          	retq
+100003f81: 66 2e 0f 1f 84 00 00 00 00 00       	nopw	%cs:(%rax,%rax)
+100003f8b: 0f 1f 44 00 00              	nopl	(%rax,%rax)
+
+0000000100003f90 <_B>:
+100003f90: 55                          	pushq	%rbp
+100003f91: 48 89 e5                    	movq	%rsp, %rbp
+100003f94: 89 7d fc                    	movl	%edi, -4(%rbp)
+100003f97: b8 05 00 00 00              	movl	$5, %eax
+100003f9c: 5d                          	popq	%rbp
+100003f9d: c3                          	retq
+100003f9e: 66 90                       	nop
+
+0000000100003fa0 <_main>:
+100003fa0: 55                          	pushq	%rbp
+100003fa1: 48 89 e5                    	movq	%rsp, %rbp
+100003fa4: c7 45 fc 00 00 00 00        	movl	$0, -4(%rbp)
+100003fab: 31 c0                       	xorl	%eax, %eax
+100003fad: 5d                          	popq	%rbp
+100003fae: c3                          	retq

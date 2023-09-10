@@ -1,0 +1,92 @@
+Name: Carter Gunderson
+
+1. int a = 5
+int b = 6
+int *ptr2 = &b
+int *ptr1 = ptr2
+*ptr1 = 7
+ptr1 = &y;
+what is the value of *ptr2?  You must give some brief explanation for your answer
+
+so ptr 2 starts as 6
+int *ptr2 &b = 6
+but then ptr1 points gets assigned ptr2
+so they both are pointing to the address of b
+so when *ptr = 7 it is saying the the value
+at the address of b becomes 7
+so the question what is the value of *ptr2
+it is still pointing to the address of b
+so the value is 7
+
+
+
+2. [2] Arrays. Allocate an array of structs
+struct student {
+   int age;
+   char* name;
+};
+arr = malloc(100 * sizeof(struct student))
+printf(“%p  %l”, arr, sizeof(struct student))
+>  0xfffa20  16
+what is the output for  
+printf(“%p”, &arr[16])
+explain briefly what you understand, even if you don’t know the answer
+
+
+
+so it looks like the sizeof struct is 16
+so if we're going to go to the 16th item in the array
+and each item is size 16
+then the new address will be old_address + (16*16)
+so if the old address is 0xfffa20
+			+0x000100
+			---------
+			 0xfffb20
+so that will be the output
+>0xfffb20
+
+3. [1] What is the role of %eax in the following instruction?
+add    $0x2, %eax
+a) input only
+b) output only
+c) input and output
+
+
+I forget what the registers particular roles are
+but just based on the way its written it looks like
+2 is getting assigned to it
+so i would guess it's (a) input only	
+
+
+
+4. [2] How many cache misses would you expect from the following loop if the array arr[][] 
+has never been referenced before in the code? Assume that a cache line is 64 Bytes, and 
+an int is 4 Bytes.
+int arr[1024][1024]
+for (i=0; i<1024; i++) {
+    for (j=0; j<1024; j++) {
+         arr[i][j] += 5
+
+ok so if an int is 4 bytes then each 64 byte cache line can get 16 items before
+getting a miss and needing to go get more data from main memory
+so if there's 1024*1024 items the ammount of misses would be (1024*1024)/16
+
+
+5. [2] explain the type (void *)
+
+this is the type returned by malloc unless specifically cast otherwise
+its a pointer like all other pointers it has a memory address
+but it doesn't give the compiler information about what kind of
+value is stored at that location
+so if you're dereferencing it then at some point you'll need
+to interpret the data as some kind of type
+or not it will just be raw bits
+
+
+
+6. (extra) Explain what the following instruction does
+
+mov   %rax, -0x8(%rbp)
+
+I'm still at the point where I'd have to look it up
+

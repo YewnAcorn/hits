@@ -1,0 +1,18 @@
+project ideas:
+
+sits in greenhouse with sensors for 
+moisture, temperature, sunlight, pH levels
+
+power supply/energy usage
+
+have a webserver interface
+
+dripworks
+
+plant profiles
+
+digital business ledger
+
+digital almanac
+
+

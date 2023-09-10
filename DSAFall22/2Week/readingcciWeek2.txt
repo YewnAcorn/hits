@@ -1,0 +1,23 @@
+Reading for CCI
+week 2
+
+Chapter I: The interview process
+
+This chapter describes the interview process. It basically confirmed my expectations
+The interviewer asks the interviewee to "whiteboard" some problem that tests 
+their knowledge of coding. It reminds me of this guy who was some kind of 
+airspace engineer. His interview was that he was given a "basket case," a box
+of parts all mixed up and told it was an airplane and that it needed to fly.
+So it makes sense to me that for an engineering job you have to demonstrate 
+that you have a certain level of proficency in some weird scenario.
+
+
+Chapter II: Behind the scenes
+
+This chapter talks about the specifcs of interviewing at the biggest tech companies. Microsoft, Apple, Facebook, etc.
+They have different hiring methods. Like some places you apply to work there in genereal like at facebook. But at Palanir and
+others you apply to work for a specific team. Microsoft wants you to be "passionate about techonology" whereas Apple wants you
+to be "passionate about Apple." I thought that was funny because even Microsoft knows that no one is "passionate about Microsoft"
+Honestly I think I would prefer not to work for any of these companies. If I had to pick maybe I'd say Apple because they
+seem like they have the least amount of evil in their reputation. But I'd prefer none of the above. Instead I would like
+to work for open-souce projects or non-profits or random weird start ups or teach.

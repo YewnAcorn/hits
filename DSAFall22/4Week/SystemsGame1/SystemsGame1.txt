@@ -1,0 +1,19 @@
+Carter Gunderson
+
+1. the value of *ptr2 (as in the dereferenced pointer)
+	will be the value of ptr1 which is &y which is
+	7
+
+2. (a) because the ts[10] already does the dereferencing
+	where the -> operator does the deref/assignment
+	in one, so it would be too much with the [10] part
+
+3. in the heap
+
+4. its only a pointer that is going to be pointing to memory
+	that obstensibly is already allocated for board1 and board2
+
+5. (void *) is the type of pointer returned by malloc()
+	its a type of pointer that is not associated with
+	a specific type of data. As opposed to (char *) or
+	(int *)

@@ -1,0 +1,9 @@
+PDC - Reading Week5 Systems Part2
+
+1. Temporal locality is when something is used over and over again
+2.If I was a librarian and I had to decide which books to put on display
+	I would look at library science data. But if this is a metaphor
+	I would look at what books are checked out most frequently.
+3.pretty straightforward reading
+
+Carter Gunderson

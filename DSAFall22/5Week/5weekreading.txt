@@ -1,0 +1,18 @@
+PDC - Reading Week 5 Systems
+
+1. a stack frame is a unit of data that gets pushed to the stack for a function
+
+2. %rbp is the base pointer, aka the frame pointer, points the the base of the
+	current stack frame
+3. %rsp is the stack pointer, always points to the top of the tack
+
+4. %rip is the instruction pointer, keeps track of which instruction 
+	comes next, points to an address in code segment memory (not stack)
+5. %rdi
+
+6. you subtract 4 because the stack grows by going down and 4 is 
+	the size of an integer in memory
+
+7. why doesn't C have a way to express binary?
+
+

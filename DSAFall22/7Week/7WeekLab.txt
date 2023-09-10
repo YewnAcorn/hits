@@ -1,0 +1,17 @@
+1. I am turning this in late, I did it in class with a group
+	but now I cant remember exactly who, some of the cast
+	of folks in zoomland
+
+2. got valgrind running on the linux on my raspberry pi
+	to run cachegrind, callgrind, massif
+
+3. My guess for big O is n**2
+
+4.running valgrind stuff was fun to do on game of life
+	I forgot that I had programmed it to run in an infinite loop
+	So when I put it into massif the first time it just started
+	the game of life again with the massif ID stuff thrown in there
+	made me laugh, like the experiment was breaking out of the
+	petri dish
+
+
