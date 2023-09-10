@@ -1,0 +1,55 @@
+Carter Gunderson
+1 week reading
+
+Read chapter 1 in Sutton and Barto (1.1 -1.6)
+What are the 4 main components of a reinforcement learning system?
+
+make sense of the environment, be able to take actions to change
+environment, have a goal related to the environment. (sensation, action,
+goal) 
+but that's only three, so there must be some other 4 main components, I'll
+keep reading.
+
+the four main elements of reinforcement learning are:
+a policy,
+a reward signal,
+a value function, 
+a model of the environment (optional)
+
+
+What is the difference between evolutionary learning and reinforcement learning?
+
+it sounds like evolutionary learning creates non-learning agents that
+carry out policies and then makes decisions based on the results of
+observing the results of that
+whereas reinforcement learning is about estimating a value function
+or how to be able to predict rewards
+
+also reinforcement learning methods interact with the environtment
+where evolutionary methods do not
+
+they are both in 'policy space' but learning a value function includes
+the ability to use the information that occurs during different
+individual moves in the game whereas evilutionary will treat all moves
+in a game it won as equal
+
+
+What does the temporal difference equation say in English?
+
+Is the temporal difference equation kind of the analog of back propagation
+in that it is the technique for calculating how much to change, but in
+this case instead of the difference between the activations and the
+target its the difference between the new state and the old state,
+whatever 'state' means exactly I'm not sure but in the tic tac
+toe example it was something like the probability of winning from
+that position.
+
+
+
+
+
+Formulate a question of your own about the reading.
+
+there was talk of evolution and genetics in terms of machine learning
+and I was wondering if there are machine leanring methods that
+mate and produce offspring and what thats called 

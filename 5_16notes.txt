@@ -1,0 +1,9 @@
+TD(0) is specific algorithm 
+temportal difference is a general concept for
+updating a prediction based on an observation
+
+
+TD(0) applies to states
+temportal difference applies to state-action pairs
+
+

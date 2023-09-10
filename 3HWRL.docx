@@ -1,0 +1,99 @@
+3.3, 3.4, 3.7, 3.8, 3.9, 3.14, 3.15  (you can skip 3.4, it is somewhat vague. you would need to make up values for p(s', r | s, a) )
+
+
+Exercise 3.3 Consider the problem of driving. You could define the actions in terms of
+the accelerator, steering wheel, and brake, that is, where your body meets the machine.
+Or you could define them farther out—say, where the rubber meets the road, considering
+your actions to be tire torques. Or you could define them farther in—say, where your
+brain meets your body, the actions being muscle twitches to control your limbs. Or you
+could go to a really high level and say that your actions are your choices of where to drive.
+What is the right level, the right place to draw the line between agent and environment?
+On what basis is one location of the line to be preferred over another? Is there any
+fundamental reason for preferring one location over another, or is it a free choice? 
+
+I think the choice depends on where you can fit a computer into the 
+control flow of the vehicle most efficiently
+like you could build a robot that sits in the driver seat and has
+cameras for eyes and checks its blind spot like a human driver and
+adjust the mirror etc but it wouldnt be as efficient as something
+thats more integrated into the machine of the car, but mayeb your
+goal isnt efficiancy maybe you want something for fun or for
+a movie, or science so it depends what the goal is.
+
+
+3.4 Give a table analogous to that in Example 3.3, but for p ( s 0 , r |s, a ). It
+should have columns for s , a , s 0 , r , and p ( s 0 , r |s, a ), and a row for every 4-tuple for which
+p(s 0 , r |s, a) > 0.
+
+
+so the only time the reward is greater than zero is when the
+robot secures an empty can and that can only happen when its
+searching
+
+s     a       s'      r       p(s', r | s, a)
+high  search  high    1        alpha
+high  search  low     1        1-alpha
+low   search  high    1        1-beta
+low   search  low     1        beta
+
+
+xercise 3.7 Imagine that you are designing a robot to run a maze. You decide to give it a
+reward of +1 for escaping from the maze and a reward of zero at all other times. The task
+seems to break down naturally into episodes—the successive runs through the maze—so
+you decide to treat it as an episodic task, where the goal is to maximize expected total
+reward (3.7). After running the learning agent for a while, you find that it is showing
+no improvement in escaping from the maze. What is going wrong? Have you e↵ectively
+communicated to the agent what you want it to achieve? 
+
+So I'm thinking whats wrong here is the reward is for being outside the maze
+but that doesn't have a way of tranlating to states within the maze
+its just reward zero "at all other times" so, not necessarily broken
+down into a gridworld maze, which it would need to be in order to learn
+then it could be more of a MDP
+
+Exercise 3.8 Suppose gamma = 0 . 5 and the following sequence of rewards is received
+ R[1] =  1, R[2] = 2, R[3] = 6, R[4] = 3, R[5] = 2, T = 5. 
+What are G 0 , G 1 , . . . , G 5 ? Hint:
+Work backwards.
+
+G[T] = R[T+1] + gamma * R[T+2] + (gamma^2) * R[T+3]
+so
+G[5] = 0
+G[4] = R[5] 
+     = 2
+G[3] = R[4] + gamma * R[5] 
+     = 3    + 0.5   * 2
+     = 4
+G[2] = R[3] + gamma * R[4] + gamma^2 * R[5]
+     = 6    + 0.5 * 3      + 0.25   * 2
+     = 6 + 1.5 + 0.5
+     = 8
+G[1] = R[2] + gamma * R[3] + gamma^2 * R[4] + gamma^3 * R[5]
+    =  2    +  0.5 * 6     + 0.25 * 3       + 0.125 * 2
+    =  2 + 3 + 0.75 + 0.25
+    =  6
+
+ Exercise 3.9 Suppose  = 0 . 9 and the reward sequence is R 1 = 2 followed by an infinite
+sequence of 7s. What are G 1 and G 0 ? 
+
+gamma = 0.9
+R[1] = 2, R[2] = 7 ....R[*] = 7
+
+G[1] = 7 * 1/(1-0.9)
+     = 7 * 10
+     = 70
+
+G[0] = 2 + ...
+     = 72
+
+
+Exercise 3.14 The Bellman equation (3.14) must hold for each state for the value function
+v ⇡ shown in Figure 3.2 (right) of Example 3.5. Show numerically that this equation holds
+for the center state, valued at +0 . 7, with respect to its four neighboring states, valued at
++2. 3, +0 . 4,  0. 4, and +0. 7. (These numbers are accurate only to one decimal place.) 
+
+2.3 + 0.4 + (-0.4) + 0.7 = 3
+3/4 = 0.75
+    = 0.7
+
+

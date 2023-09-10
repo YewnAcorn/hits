@@ -1,0 +1,27 @@
+Carter Gunderson
+5 week reading
+
+    Read chapter 5 in Sutton and Barto (5.1 - 5.4 )
+
+    What does exploring starts mean?
+It means starting with a state-action pair and having
+a probability of starting with any state-action pair so
+that after starting enough times, each state-action pair
+will be explored at least once. This is done to deal with
+the fact that without this, the policy is not guaranteed
+to check every state-action pair
+
+    What are off-policy methods?
+
+off-policy methods are one of the ways to ensure
+that all state-action pairs are explored without
+using exploring starts. 
+
+    Describe epsilon-soft in English.
+The likelihood of making an exploratory move
+
+    Formulate a question of your own about the reading.
+Not really sure what to make of the equations of epilon soft.
+Is it saying take the value of epsilon divided by the number of
+possible actions in that state? And what does that do? What is that
+number for?

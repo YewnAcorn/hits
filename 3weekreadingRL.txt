@@ -1,0 +1,31 @@
+Carter Gunderson
+3 week reading RL
+
+Read chapter 3 in Sutton and Barto (3.1 - 3.6 )
+What is a Markov decision process?
+ From what I understand the MDP is how to make a
+decision in an environment where states have the 
+Markov property, which is where the state contains
+enough information about it's history, like
+in checkers, the state of the board contains
+the information more or less of how the game
+has gone up till that point, without having to
+save logs of every turn
+
+    What is a discounted reward?
+it is a way of making the weight of each
+future estimate smaller when calculating the estimated
+return. This is useful for continuous tasks because
+they could effectively have infinite time steps
+    What is policy?
+policy is the method for choosing actions
+    What is the difference between the return and a reward?
+return is the expected reward and can include calculating
+more long term reward. Reward itself is the reward
+recieved after taking a certian action and arriving at
+the new state
+    Formulate a question of your own about the reading.
+The bellman equation is something I'll need to look at
+more to fully understand what is going on there
+
+

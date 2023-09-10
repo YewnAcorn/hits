@@ -1,0 +1,6 @@
+Carter Gunderson
+6 week lab report
+
+Still just trying to automate a gambler
+got the game logic done and it updates the values
+using bellman. updated github. 

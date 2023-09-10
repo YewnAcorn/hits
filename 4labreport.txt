@@ -1,0 +1,79 @@
+Carter Gunderson
+4 Lab report
+
+This is a continuation of lab 3 in gridworld.
+This week we are supposed to implement the optimal
+policy.
+
+
+this means iterating through a policy evaluation step
+and a policy improvement step. If I understand it rignt,
+then what I have from Lab 3 is already doing evaluation.
+And what I need to do now is add in an improvement step.
+
+
+This means changing the Agent class so that the 
+makeChoice() algorithm isn't always random, but can
+be changed to be greedy
+
+Implementing this means calling the cell object for each
+possible move and comparing their values, but then what
+I want is the location of the highest value, so I need
+a function that returns the cell object, not just its
+value, because what I really want once I know the one
+with the highest value is its coordinates
+
+
+I think the best way to implement this will be with
+a dictionary that way I can have the cell objects
+as key and their state-value as their value
+
+Then to return the key with the highest value
+Quinn showed me this:
+
+max(a, key=a.get)
+
+That will return the key with the highest value
+
+ok I got that working, but now the problem is that
+the way I have the logic, it looks for the 4 squares
+in the grid that are north, south, east and west,
+but that can cause it to try to look at something
+out of bounds. I already had logic to handle not
+making a move out of bounds as part of the reward
+function, but now I need some logic to make sure
+that when the agent is on the border it isn't going
+out of bounds with its peeking
+
+ok I just made a quick fix where before checking a
+direction it checks to see if that is going to be
+out of bounds and if it is, it just doesn't check
+to see the value of that state. I think this is
+fine, because there is actually no state out
+of bounds so it doesn't need to consider that
+as a possible move. And they way it is set up
+it should work fine choosing from 2 or 3 options
+as easily as from 4
+
+
+alright it looks like thats working, the only
+bug I can see now is coming from the fact that
+my logic doesn't actually ever let the agent
+stop at square A or square B, it just gives the
+reward and jumps, which was fine before, but
+now the problem is the agent is thinking the
+squares next to A and B are the best (because
+they might lead to A or B) and so greedily
+going there instead of to the actual A or B
+square. Should be a relatively simple thing 
+to fix tho, lets see. (famous last words)
+
+ok I just had to move the update equations
+for the special squares into a special condition
+and essentially hard code those 2 cases. Probably
+not how its done in larger contexts but it works
+for this and I think thats it I think gridworld
+has been reinforcement leanred
+
+check it out on the github its called policyworld.py
+

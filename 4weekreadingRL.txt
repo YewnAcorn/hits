@@ -1,0 +1,31 @@
+Carter Gunderson
+4week reading
+
+> What is policy evaluation?
+Part of what we were doing in lab 3 in the case where
+the agent in gridworld could look at all the squares around the
+one it was in and then calculate the value of its state based
+on the discounted average of the values of the states around it
+
+> What is policy improvement?
+When instead of radomly exploring gridworld, the
+agent makes greedy moves based on its estimates from the
+previous step of policy evaluation
+
+>What is policy iteration?
+Policy iteration is combining the two pervious steps into
+a 2-part loop of evaluating and then improving over and over
+to converge to the actual values of each state
+
+> What is value iteration?
+It is just going through the policy iteration
+one time.
+
+> Formulate a question of your own about the reading.
+So this is DP which needs a model which is the fact that
+is keeping track of what values it considers each state
+to have? Like it keeps its own grid of estimated state-values?
+
+What makes it different than bellman? Or is it just applying bellman
+as part of what its doing?
+

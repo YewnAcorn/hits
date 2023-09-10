@@ -1,0 +1,53 @@
+Carter Gunderson
+8 week workshop
+
+Goals: understand Dyna-Q
+
+        read the code on P 164 about Dyna-Q
+    workshop
+        Using Figure 8.2, what is the first time that the cell 2 steps away from the goal will be updated with a non-zero value?
+        look at exercise 6.7, design an off-policy TD(0) using the importance sampling ratio ρ
+
+Turn in:
+
+    Whom you worked with
+worked with Julian
+
+then realized I didnt have the right version of the pdf
+and was missing the right figure 8.2 so Julian hooked me up
+with the link to the right pdf download. So I finally have
+that and I'll have to do the rest of this after class because
+we're out of time
+
+##upadte after class
+
+the first time a cell 2 steps away from the goal will be updated
+with a non-zero value is after some things:
+first a greedy action gets taken and the reward is used
+to update Q
+then that also gets added to the model,
+then inside the planning loop
+the model will look ahead
+however many n-steps and use
+that informaiton to also update Q
+but I think this doesn't affect the answer
+because what needs to happen for the space 2 steps
+away to get counted is eventually
+the algorthm will find the end and it will update
+backwards with the reward and so I think what 
+the answer is that first the update will happen to the
+square 1 step away by the direct RL update and then the planning
+update will update the square 2 steps away and however many n-steps
+after that after doing a simulated experience and a planning update
+
+
+    What questions you have about the workshop
+
+the diference between off policy and planning is off-policy is
+still interacting with the real environment but just
+not following the target policy, where planning uses a
+simulated experience to learn from inbetween making real moves
+in the real environment? is that right? and do these things get
+combined or are they already?
+
+

@@ -1,0 +1,86 @@
+Carter Gunderson
+3 week lab report
+
+So for this lab we're going to make gridworld happen
+I had a dream once there was a parallel earth that 
+was grid world. I think thats where math comes from.
+(Or was math what created it?)
+
+useful python match case, randrange
+
+about using 'match' which
+is a new feature in python 3.10 looking into
+it it seems like a upgraded switch case. I think
+it will be useful in this project for matching
+certain coordinates with certain values.
+Like in the example in the book there are 2 special
+coordintates A and B which give bonus points and
+jump the player to a further square.
+
+steps are:
+ initialize the grid,
+initialize the position of the agent
+choose an action and compute the result
+
+
+ok step one initialize the grid.
+First thing that comes to mind is using
+a 2D array where the value in each element is
+just it's cartesian coordinates
+
+ok it works but it doesn't print it in a grid, just
+as a lists of lists, so let me make a printGrid function
+too.
+
+and my grid is a little messed up it is (y,x) coordinates
+intead of (x,y) but it still works. 
+
+ok making an agent class to do this in object oriented
+been trying to get the match case technique to work for too long
+I give up I'll just use if/elif
+
+so then all it has to do at this point is randomly
+traverse the grid and accumulate points. I think
+the next step would be to have it calculate the 
+expected return of each move and make its policy
+based on that?
+But I'm not sure how to do that yet.
+
+Also I'm realizing my grid doesn't even need to be
+there except to print at the start to help me
+check if its working. But all the actual environment
+is created by the self.state and the rules preventing
+it from going out of bounds
+
+I worked alone on this one, I learned more python and am
+getting closer to figuring out how to calculate the optimum
+which I think its the next step. I will ask for help tomorrow
+
+
+--UPDATE--
+
+Just rewatched thursday (4.20) class
+I got a clue from that about how what the next step is
+Something about those backup diagrams. But there was something
+else about going through all 25 squares and computing the average
+of all its neighbor's values, but I'm not sure how those neighbors
+have values in the first place. Is it just the rewards, ie -1 for
+out of bounds, 10 for A, 5 for B and 0 otherwise? That can't be
+right, because the discount applies to it too somehow. 
+
+ok trying to figure out bellman equation, it looks like
+its going to be something like this:
+
+def value(state):
+	pickMax(reward(state, action)) + gamma * value(state')
+
+or in otherwords its the maximum reward for the state
+plus discounted rewards for all the next states
+
+
+--UPDATE---
+Working with Quinn and Emma
+Object grid cell with 4 actions as elements of estimated value
+
+
+

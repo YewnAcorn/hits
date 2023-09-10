@@ -1,0 +1,40 @@
+Carter Gunderson
+6 week reading
+
+Goals: Understand TD(0)
+Read section 5.5 (skip the equations) and 5.7
+Read chapter 6 in Sutton and Barto (6.1 - 6.5 )
+
+What does temporal difference mean in this context?
+
+it is a way of combining monte carlo and dynamic programming
+this is what we did for k-armed bandits though, wasn't it?
+Was that just to prepare us for this? Is it the same?
+
+What is SARSA?
+
+an algorithm for doing on-policy TD learning
+it goes: State Action Reward State Action
+
+
+What is Q-learning?
+
+it sounds like its kind of like SARSA but its
+off-policy. Does that mean it has to be more
+like dynamic programming in that it has to
+look at all the potential moves from a state?
+Does it need a model then?
+
+
+Questions:
+
+This sentence right here is how the book introduces
+importance samplingi in 5.5: 
+
+"Importance sampling is a general technique for estimating expected values
+under one distribution given samples from another."
+
+I cant figure out what that means
+
+
+

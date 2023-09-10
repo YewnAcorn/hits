@@ -1,0 +1,45 @@
+what is an off-policy TD(0) using importance sampling?
+
+td error = gamma*G[t+1] - V(S[t+1])
+
+importance * td error
+
+How to initialize Q-values
+
+could be 0 or could be random in a range
+or be optimistic and encourage exploration
+then randomize them to be higher than the
+value should be
+
+workshop week 8: isnt it random when states are updated for Dyna-Q
+
+???
+
+How does policy improvement find shortcuts
+For MC do you use a model in estimating v(S)? see workshop 7
+For MC do you use the previously estimated values for other states?
+for MC what is the order in which you update states? (reverse)
+for MC when you visit the sate more than once in an episode do you use the
+ updated values on the subsequent visits in the episode?
+For MC, the returns are averaged, but in the workshop you only had one
+  episode. How do you interpret that
+For DP do you use episodes?
+For DP if you are estimating the value of a state for policy pi, do you
+ use the max return?
+For TD(0) does your value update use all of the possible next states?
+For TD(0) id you visit a state more than once in an episode, do you use
+ the updated value the second time?
+If you are updating the policy, you could set equal probabilities when there
+ is a tie
+What is trajectroy sampling vs sampling over all possible states?
+How is function approximation the same as supervised learning?
+Figure 7.2 relates the n in n-step SARSA to alpha. What does it mean?
+ Is it true that the larger n is, the more variance there is?
+In GPI we start with non-optimal policy and value estimates that are not
+  correct, and by iterating we get closer to the actual values as we
+  improve the policy.
+TD(0) and MC are both optimal but for different problems
+How is TD(0) better than MC?
+How does expected SARSA work for cliff walking
+
+

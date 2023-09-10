@@ -1,0 +1,33 @@
+Carter Gunderson
+8 week reading
+
+
+    Read Chapter 8 (8.1 - 8.5). 
+    What is the difference between state-space planning and planning-space planning?
+
+state-space planning is what we have been learning about, where
+the value function is calculated by having actions move from state to state
+plan-space planning is something else where instead of going over states
+it goes over plans which are distribution models and the value is 
+computed from the plans
+
+    Explain figure 8.1.
+8.1 is called random-sample one-step tabular Q-planning
+
+you start by choosing a random state and random action and
+send them to the model to get the sample reward and sample next state
+then using that info, plug it into the one-step tabular Q-learning
+formula which updates the estimated value Q[s][a] by doing
++= alpha*(reward + (gamma * best_possible_next_state) - Q[s][a])
+and it loops that forever
+
+    Formulate a question of your own about the reading.
+am I understanding it correctly?
+
+I am having a hard time integrating the idea of off-policy
+learning into my mental model of reinforcement learning
+I'm wondering if there is an analogue in real life learning?
+like I see monte carlo as learing from experience
+and dynamic programming as learning from books
+would off policy be like learning from someone else's experience?
+	

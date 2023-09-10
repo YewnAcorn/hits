@@ -1,0 +1,13 @@
+Carter Gunderson
+5 lab report 
+
+worked in class with Andrew, Riley and Griffin
+
+Andrew showed us his code for lab 5. We discussed
+the differences between DP and MC
+
+worked a little on helping him debug it
+
+will work on setting up one for myself later today
+
+getting the game logic and the basics of DP sorted out

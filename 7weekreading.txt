@@ -1,0 +1,25 @@
+Carter Gunderson
+7 week reading
+
+Goals: Understand TD(0)
+
+Tasks:
+
+    Finish chapter 6 in Sutton and Barto (6.6 - 6.9 )
+    Read Chapter 7 (7.1 - 7.5). 7.4 and 7.6 are optional.
+
+    What is expected SARSA?
+
+	Is it when SARSA is applied to state-action pairs rather than to states?
+
+    What is n-step TD prediction?
+	This is where instead of TD(0) where its based on the next reward, state, action
+	its based on TD(n) so its looking ahead (or back) n number of moves
+
+
+    Formulate a question of your own about the reading.
+	is this all building towards some model that is best or does
+	it end up being that there are lots of options depending on
+	what the your needs are?
+
+

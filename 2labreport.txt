@@ -1,0 +1,31 @@
+Carter Gunderson
+
+I think the idea is basically to use our understanding
+of the concepts in the book to build a 10 armed bandit
+and build a player that can estimate the means of the
+different arms. There is a framework on github which I
+will look at for clues if I get stuck, but I really
+enjoy learning by trying to build it from just what
+I understand. That way if I dont understand something
+I can't skip it.
+
+so starting out I'll just build the bandit because
+thats simple enough. Like a function and you can
+put in as an arguement what lever you'd like to
+pull and it will put out a random number as your
+reward. That will have a secret mean which is high
+or low. 
+
+So I built that machine and then I made an agent class
+that keeps track of is things and has methods for making
+a choice and playing the game and updating its fields
+but it wasn't working for a while and then I found two
+errors that were slowing me down was: 1 needing a new random seed
+and 2 making sure the step size was proportional to the number of moves
+in the temporal difference calculation
+
+I got it working now and I'll post my code to the
+github class room if I can figure that out. If not
+it will also be in my own github
+
+

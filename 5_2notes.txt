@@ -1,0 +1,80 @@
+DP = Dynamic Programing
+MC = Monte Carlo
+RL = reinforcement learning (a combination of the two)
+
+What is bellman equation?
+A way to compute the value of a state
+
+Its important to mark the difference
+between immediate reward for an action
+and the return associated with the next
+state which is calculated using bellman
+
+
+workshop week5
+design 3 classes sttate/action, agent, environment
+
+design a DP solution with value iteration: sweep
+thru all the states and update the value
+
+design a a Monte Carlo solution 
+
+in pseudo code
+
+worked with Briana and Emma
+
+Talking about the difference between Monte Carlo
+and decision making and understanding the 
+gambler's problem. Its basically the
+numberline of 0-100 is the state and
+the actions are how much to bet on a coin flip
+
+didn't get very far in class I will finish
+indivudually:
+
+I think I would rather just keep track of the state
+inside the agent, but maybe it would be 100 state
+objects, one for every possible integer dollar ammount
+and each onbject would contain the value
+
+class StateAction
+	self.money = int
+	self.value = int
+
+class Agent
+	def place_bet(amt)
+		bet = amt    # range 99
+		toss = random.choice(False, True)
+		if toss
+			money += bet
+		else
+			money -= bet
+	
+	def calcualte_value(stateAction.money)
+		money = stateAction.money
+		StateAction.value += .01* (0.9 * value + reward)
+	def Dynamic program
+		while money != 0 or 100
+		for amt in money:
+			for amt in bet:
+				place_bet(amt)
+				calculate_value()
+				update_state_value()
+	
+	def Monte Carlo:
+		 while money != 0 or 100
+		 	place_bet(amt=random) exploration move
+			calculate_value()
+			update_value()
+			place_bet(amt=state.value()) greedy move
+			calcluate_value()
+			update_value()
+
+	
+I'm not sure what the environment class would be
+I know there's some way makeing epsilon something
+else but in this example its just every other time
+and then once the DP or MC methods finish they get run
+again and again and each time through they get more
+information is I think how it works.
+

@@ -1,0 +1,56 @@
+gaussian
+
+c exp(-x^2/2)
+c exp(-(x-mean)^2/2 * sd ^2
+
+sd = standard deviation, changes steepness of bump
+mean controls x axis
+
+sigmoid is the S shaped function
+
+can be used in reinforcement learning
+to cluster states in radial basis function
+
+linnear means v(S, w)(x) = wT * x 
+w transpose times x
+
+in this case x is the values of the states ->
+observed/estimated returns
+
+x = G[t]
+w = model
+
+w describes the line 
+for the linnear regression
+
+y = mx + b 
+w0 + w1x1 + w2x2 = 0
+
+from separate states to continuous states?
+we cant model the world completely so now
+we can identify the state with the features
+of the state. But with the ones that we can
+observe we identify with a state.
+so for this type of model the best we can
+do is w is the state, x is the discounted return
+modeling between states and actions, policies
+reducing dimensionality, simple model. 
+
+modeling the state with a fixed set of numbers
+x = G[t](row,col)
+v(S,w)(x) - G[t](x)
+
+w is the coefficients
+x are the features for each state we can measure the features
+
+in a best fit line:
+
+the points are the returns
+the line is the value function
+the weights move the line to minimize the error
+
+TD lambda is the gold standard in reinforcement learning
+
+
+
+

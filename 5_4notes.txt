@@ -1,0 +1,12 @@
+every visit vs first visit
+keeping track of rewards of all states it went thru till end of episode
+update only the larger reward or ignore duplicates in the states
+
+
+on policy vs off policy
+
+off policy is like using
+epsilon to train and then
+just using greedy afterwards
+
+

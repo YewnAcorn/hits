@@ -1,0 +1,32 @@
+Carter Gunderson
+notes 5.9.2023
+
+temporal difference
+
+for k-bandits
+R_avg = R_avg + alpha (R[t+1] - R_avg)
+
+for gridworld
+equation 6.2
+G[t] = R[t+1] + gamma G[t+1]
+
+G[t] + alpha (R[t+1] + gamma * G[t+1] - G[t])
+V(S[t]) = V(S[t]) + alpha (G[t] - V(S[t]))
+V(S[t) = V(S[t]) + alpha (R[t+1] + gamma * V(S[t+1]) - V(S[t]))
+
+
+gambler's problem (11:04)
+
+pairs: 1..min(k, 100-k)
+
+need values of state-action pairs
+constant step size alpha:
+ so dont need to keep track
+ of what step it is
+
+just alpha times delta
+
+quality(state,aciton)
+
+
+

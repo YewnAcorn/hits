@@ -1,0 +1,63 @@
+Carter Gunderson
+2 week reading
+
+1. What is the differenc between associative and non-associative
+settings?
+
+associative is when there are different situations that
+can be faced but in a non-associative problem there is only one
+situation. This is a simplified problem so we can learn basic
+learning methods to apply later to the full problem.
+
+How does the book define the value of an action?
+
+The value is the expected reward for a given action,
+there is also the actual value that is unknown but
+is trying to get estimated by this equation
+
+true (actual) value of action a = q(a)
+estimated value on tth time step as Q[t](a) 
+
+the true value is the mean reward when that action
+is selected. this is estimated by averaging the 
+rewards after selecting that action. 
+on the tth time step action a has been chosen N[t](a) times so far
+(not including t) 
+with rewards R[0], R[1]...R[N[t](a)v],
+then the estimated value is
+
+Q[t](a) = (R[0], R[1]...R[N[t](a)v]) / N[t](a)
+
+so thats all the rewards that this move has accumulated
+so far divided by the number of times the move has been made
+is the estimated value
+
+
+What is epsilon-greedy?
+Almost always choosing greedy but every now and then
+choosing ramdomly to explore
+
+in the example it gets tested on 2000 randomly generated
+10-arm bandits. each arm has a different value and its
+this methods job to find the right one. It tests pure
+greedy vs. epsilon = 0.1 vs. epsilon = 0.01
+
+in the graph it shows episolon = 0.1 finds the optimum faster
+but can never choose it more than %91 of the time. the episolon = 0.01
+method finds the optimum slower but eventually performs better
+
+epsolon can be lowered over time to get the best of both
+
+
+What is the difference between a stationary and a non-stationary setting?
+the values that are getting estimated in stationary are static 
+but in non-stationary the actual value can change over time
+reinforcing the need for exploration. It is common in RL 
+to deal with non-stationary cases
+
+
+Formulate a question of your own about the reading.
+I got lost on equation 2.3 where its showing how to
+calculate the reward 
+
+
