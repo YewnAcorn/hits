@@ -1,0 +1,28 @@
+Buffer overflows
+
+data/stack
+control flow
+
+what is memory corruption?
+changing program metadata and variables
+and data in general. mpdifying a binary's
+memory in a way that was not intended
+
+vast majority of system level exploits
+involve memory corruption
+
+0-overflow_example
+
+scp ~/Downloads/booksrc.zip lecture@ IP.AD.RE.SS:/tmp
+
+compile with
+gcc -m32 -fno-stack-protector -overflow overflow_example.c
+
+lab for this week is memory
+corruption
+
+ssh lab2C@IP
+pass lab02start
+
+
+

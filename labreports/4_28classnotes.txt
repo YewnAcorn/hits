@@ -1,0 +1,57 @@
+class notes 4 28 23
+
+agenda::
+	download modern binary exploitation lab VM
+		https://github.com/RPISEC/MBE
+		based on Rensselaer Polytechnic Institiute Spring 2015
+		archived with gzip 
+			use 7-zip on windows to unzip	
+			on mac get homebrew (CLI package manager) and then
+			$ brew install gzip
+	XSS questions
+		How does browser tell the difference between
+		legitimate javascipt and an attack?
+		Best protection is whitelisting user-controlled
+		input.
+	XSS Lab Time
+	modern binary exploitations VM import
+		instructions in README on the github
+		> gunzip Downloads/MBE_VM.vmdk.gz
+			that extracts the archived file
+		click new machine, give it a name like 'mbe'
+		no iso image
+		select linux, linux ubuntu (32-bit) 
+			(version is unimportant? but it is 32-bit)
+		use an existing virtual hard disk
+		give it minimum 512 MB or more if you can
+		1 core is fine
+		select virtual hard disk file and select the .vmdk
+			that was extracted by the earlier steps
+	bridged networking
+		before starting your VM, click the 'Settings' button
+			it looks like a golden gear
+		Go to the Network tab and change type from NAT
+			to Bridged Adapter, and then choose the interface your
+			computer uses to access your network. This will give your
+			VM an address on your local network.
+		Start up the machine, it will install.
+		username and password: gameadmin
+		once you are logged in do the command ip addr to see your
+			VMs assigned IP addess on your local network
+		Back on your host machine open a terminal and run the command
+			ssh gameadmin@yourIPaddressHere
+	You can now do the warzone labs
+		Each lab will have a different username to login. The information
+			we will need is all in the README	
+		It contains lectures as well which are part of the reading for the labs
+	
+	Reminder to get your copy of 'Hacking the Art of Exlpoitation'
+		It also has a VM that can be used to follow along with examples from the reading
+		You can find it on the book's website
+		google: 'Hacking the Art of Exploitation book src'
+		copy and paste the download link to the browser and it will download it
+		That can be uploaded to the VM we made at the beginning of the quarter
+			using SFTP or SCP to be unarchived and then used to learn
+		
+		
+

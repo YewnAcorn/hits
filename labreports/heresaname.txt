@@ -1,0 +1,34 @@
+Carter Gunderson
+8 week lab report
+
+
+ok Shellcode
+this is where instead of jumping
+to a shell-spawning function like
+in last week's lab. We will inject
+self-contained code that does it
+for us. 
+
+
+From usrinclude/unistd.h
+
+/* Standard file descriptors. */
+#define STDIN_FILENO 0 /* Standard input. */
+#define STDOUT_FILENO 1 /* Standard output. */
+#define STDERR_FILENO 2 /* Standard error output. */
+
+From usrinclude/asm-i386/unistd.h
+#ifndef ASMI386_UNISTD_H_
+#define ASMI386_UNISTD_H_
+/*
+* This file contains the system call numbers.
+*/
+#define __NR_restart_syscall 0
+#define __NR_exit 1
+#define __NR_fork 2
+#define __NR_read 3
+#define __NR_write 4
+#define __NR_open 5
+#define __NR_close 6
+
+

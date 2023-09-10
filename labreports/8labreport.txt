@@ -1,0 +1,105 @@
+Carter Gunderson
+8 week lab report
+
+
+ok Shellcode
+this is where instead of jumping
+to a shell-spawning function like
+in last week's lab. We will inject
+self-contained code that does it
+for us. 
+
+
+From usrinclude/unistd.h
+
+/* Standard file descriptors. */
+#define STDIN_FILENO 0 /* Standard input. */
+#define STDOUT_FILENO 1 /* Standard output. */
+#define STDERR_FILENO 2 /* Standard error output. */
+
+From usrinclude/asm-i386/unistd.h
+#ifndef ASMI386_UNISTD_H_
+#define ASMI386_UNISTD_H_
+/*
+* This file contains the system call numbers.
+*/
+#define __NR_restart_syscall 0
+#define __NR_exit 1
+#define __NR_fork 2
+#define __NR_read 3
+#define __NR_write 4
+#define __NR_open 5
+#define __NR_close 6
+
+Career:
+make a website
+spam 100s of applications for jobs
+CTF
+BSides conventinos
+
+
+vulnerability in fgets allows too much
+
+0000| 0xbffff66c --> 0x80487ec (<main+92>:	call   0x804873d <verify_user_name>)
+0004| 0xbffff634 --> 0x8049c40 ("rpisec\n")
+      0x00000038    
+
+34 * A + 0xbffff63b + nop nop nop shellcode 
+
+stack
+
+
+634 AAAA
+    BBBB
+    CCCC
+    DDDD
+66c jmp to code to where? 
+    A 
+    A
+    A
+    A
+
+
+487ec
+.
+.
+49c40 [ ..........]
+
+AAABBBCCCDDD...UUUU shows up
+
+U = 55
+A = 41
+
+AAAABBBBCCCCDDDD
+
+
+so a way to make a python script to print the alphabet 4 times each
+
+import sys
+print("rpisec")
+for i in range(26):
+	sys.stdout.write(chr(i+0x41)*4)
+
+and can see that UUUU is the one that fills up the
+eip register, so it must be the one getting overwritten
+onto the return address
+
+so now I know where the return address is if I can overwrite it to be
+somewhere where my shellcode is then I can get the shellcode
+to execute 
+
+but where will that code be? I'm thinking in the same line
+so its return address is just to continue forward on  the stack
+and thats where the nop sleds are to catch that little forward
+jump and carry it to the shellcode
+
+like the input would be:
+
+"rpisec" + addressoftheverynextthing --> nopsled --> shellcode
+
+Davis and Andrew and I worked on this one too
+on Discord for a while. Still couldnt get it to work
+
+Will have to come back to it later
+
+

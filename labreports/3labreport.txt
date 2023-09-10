@@ -1,0 +1,120 @@
+Carter Gunderson
+3 week lab report
+
+This week we are looking at SQLi on
+the burp academy website. The first Lab in
+this series is about getting access to more
+unreleased products
+
+SELECT * FROM products WHERE category = 'Gifts' AND released = 1
+
+is how the querey is made behind the scenes 
+so if the URL is changed to this
+https://insecure-website.com/products?category=Gifts'+OR+1=1--
+
+then the query is
+
+SELECT * FROM products WHERE category = 'Gifts' OR 1=1--' AND released = 1
+
+at first it kept giving me errors but then I figured out the thing is that OR has to be +OR+1=1 (I was leaving out a '+' sign)
+
+ok that one is complete, on to the next one
+
+The next one involves using SQLi to login as the administrator
+because normally the query is like this:
+
+SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'
+
+so the injection works like this, make the username administrator'--
+to use the closing parenthesis actually part of the query and then the -- is to
+comment out the rest of the query, like this
+
+SELECT * FROM users WHERE username = 'administrator'--' AND password = ''
+
+so to do this first I tried doing it with the inspect tool in firefox
+that lets you edit and resend. but that didnt work. so I tried it in
+burp with the proxy to intercept and when I changed it that way it worked
+So there must be some other variables I need to manipulate outside of burp
+to make it work because it seems the main difference is intercepting vs resending.
+
+the next scenario is about getting more information from
+tables using the UNION key word
+like if the request is normally this
+
+SELECT name, description FROM products WHERE category = 'Gifts'
+
+then gifts can be appended to include a whole other command like this:
+
+' UNION SELECT username, password FROM users--
+
+so that one worked
+
+Now in class we are working as a group and I asked
+questions about the XML encoding it turns out that 
+its a way to send data like json or html or something
+but really its getting at the way to do escape characters
+in that to put in an ascii character or something
+
+talking more with classmates about it
+---
+notes from class
+<?xml version="1.0" encoding="UTF-8"?><stockCheck>
+<productId>1</productId>
+<storeId>1 &#x27; &#x55;NION &#x53;ELECT username || ":" || password FROM users</storeId>
+</stockCheck>
+
+1 \x27\x55NION \x53ELECT username || ":" || password FROM users
+1 \x27\x55NION \x53ELECT username||":"||password FROM users
+
+
+ok so the idea is that there is software that is looking for 
+words like UNION and SELECT and so the way to sneak those
+words in is to represent them in hexadecimal or another
+encoding to bypass this mechanism.
+
+but there must be something wrong with my sql query because
+when it gets past the firewall it just says 0
+
+I'm going to look at the solution at this point because
+even people in the group who have done it say they can't
+get it to work and I want to see what is wrong
+
+ok so they are saying to put in this string 
+<@hex_entities>1 UNION SELECT username || '~' || password FROM users<@/hex_entities>
+
+That didnt work so I'm now operating under the impression that there is some major
+part of this that I'm missing. So I'm going to do more reading about XML entities
+
+I read some more and I guess theres a way to declare an entity like this
+
+<!DOCTYPE foo [ <!ENTITY kcggck UNION SELECT username || '~' || password FROM users > ]>
+
+so now if later I write &kcggck; it will really mean that whole injection string.
+
+but I tried this and it says 'Attack Detected' so.. dang. I really thought I was on to something there
+
+well I got a script for turning everything into hex values so I put in
+
+UNION SELECT username || '~' || password FROM users
+
+and got out
+
+554e494f4e2053454c45435420757365726e616d65207c7c20277e27207c7c2070617373776f72642046524f4d207573657273
+
+ok but it says to try something simple fist like UNION SELECT NULL just to test it
+so encoded that makes 554e494f4e2053454c454354204e554c4c
+
+and that returns  0 units
+
+which makes sense? I think, I need to look up more about SQL
+..
+
+ok! I finally got it. I was doing way more work than I had to trying to write everything
+in hex. It just needed to be plaintext inside this <@hex_entities?<@/hex_entities> tags
+and I had tried that before but I had left the store id 1 outside the tags. and literally
+all I was missing was putting it inside the tags.
+But being stuck that long I learned more about xml entities and sql and have a handy
+hex converter script now so thats cool too.
+
+
+

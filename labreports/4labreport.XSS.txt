@@ -1,0 +1,353 @@
+Carter Gunderson
+
+Cross-site scripting notes
+(XSS)
+
+the previous labs were server side, this is client side
+
+XSS is a vulnerability that allows the
+attacker to execute javascript in the victim's webbrowser
+
+classic example is reflected cross-site scripting
+the web app reflects user proviced data within the html returned to users
+
+XSS is one of the most prevalent bug categories
+
+Worked in lab with Davis and Andy and Julian in class on 4/26
+
+so this is how to add a script to a website
+that will execute when someone tries to render
+that page
+
+the script can be added to a search bar or as
+a comment. For instance, in the first couple
+labs adding <script>alert(1)</script> to the
+search bar or comment, causes the browser to
+render that and puts up an alert that says 1
+
+###Reflected cross-site scripting
+it is the simplest. It includes vulnerable data in the
+HTTP request like this
+
+https://insecure-website.com/status?message=All+is+well.
+<p>Status: All is well.</p>
+
+so this could be exploited like this:
+
+https://insecure-website.com/status?message=<script>/*+Bad+stuff+here...+*/</script>
+<p>Status: <script>alert(11)</script></p>
+
+so if a user visits that site then a script executes in the user's browser
+the script can do any action or get any data that the user can!
+
+###Stored cross-site scripting
+aka persistent or second-order XSS which comes from
+an application getting data from an untrusted source
+and includes that data in its HTTP responses in an unsafe way
+
+This can be in things like comments, nicknames, chatrooms, contact details
+or it can come from somewhere else like a webmail app displaying messages recieved
+over SMTP, a marketing app displaying social media posts or a network monitoring
+application displaying packet data!
+
+so if, for example when you post to a forum your message looks like this:
+<p>Hello, this is my message!</p>
+then it can be exploited like this
+<p><script>/* Bad stuff here... */</script></p>
+
+##DOM-based cross-site scripting
+This is possible when the site uses client side JavaScript that
+processes data from "an untrusted source in an unsafe way" <--this is what not to do
+by writing data back to the DOM
+	This can be tedious looking for so there is a
+	way to automate scanning for vulnerabilites either using
+	something like burp suite DOM Invader or it is also
+	possible to build your own using the python Requests library
+	or other similar things for other languages. It's also possible
+	to look up who made an extension for burp and find their github
+	which will likely feature the code or something similar before it
+	was adopted by burp
+
+so DOM is like when in javascript you have something like 
+
+document.getElementById("myButton").addEventListener("click", function() {
+  console.log("Button clicked!");
+});
+
+things like getElementById() and addEventListener() are part of the DOM API
+
+in this case the button would be the event SOURCE and the event listener is the
+event SINK
+
+DOM based expoitation is possible when there is "an executable path via which data
+can propagate from source to sink." This can be different for depending on the functions
+being called, which means the exploit techniques need to change. Websites can also 
+preprocess data for protection from this. The main sinks
+
+main sinks for DOM-XSS vulnerabilities:
+
+document.write()
+document.writeln()
+document.domain
+element.innerHTML
+element.outerHTML
+element.insertAdjacentHTML
+element.onevent
+
+jQuery functions are also sunks that can
+lead to DOM-XSS vulnerabilites:
+
+add()
+after()
+append()
+animate()
+insertAfter()
+insertBefore()
+before()
+html()
+prepend()
+replaceAll()
+replaceWith()
+wrap()
+wrapInner()
+wrapAll()
+has()
+constructor()
+init()
+index()
+jQuery.parseHTML()
+$.parseHTML()
+
+To protect from this: avoid allowing data from an untrusted source
+to be dynamically written to the HTML document
+
+Alright lets try this on another lab:
+LAB: DOM XSS in document.write sink using source location.search inside a select element
+
+in this case it is sending this to
+the sink via the URL, so by changing the end where it
+says productId=2 to productId=somethingelse I should
+be able to exploit it.
+
+the lab says its inside a select element
+which looks something like this:
+<select id="mySelect"> </select>
+
+So I'm thinking if I start my code with </select> and then
+add <script>alert(11)</script> after that it might work
+"</select><script>alert(11)</script>
+that didnt work 
+ok I was missing something I need to add a new parameter to the URL
+I thought I was supposed to modify the productId=2 but really I'm
+supposed to add a storeId parameter. Based on this being
+ in the inspector:
+
+<script>
+var stores = ["London","Paris","Milan"];
+var store = (new URLSearchParams(window.location.search)).get('storeId');
+document.write('<select name="storeId">');
+if(store) {
+	document.write('<option selected>'+store+'</option>');
+}
+for(var i=0;i<stores.length;i++) {
+	if(stores[i] === store) {
+		continue;
+    }
+	document.write('<option>'+stores[i]+'</option>');
+}
+document.write('</select>');
+</script>
+
+
+so I think what this is doing is adding elements to the stores
+array if they arent already in the array
+so to add a new parameter called storeId to the URL I need
+to use the & character like this
+
+product?productId=19&storeId=test
+
+ok so that added test to the list of stores in the drop down
+which means I think that the code was propagated from source to sink
+<select name="storeId">
+<option selected="">test</option>
+<option>London</option>
+<option>Paris</option>
+<option>Milan</option>
+</select>
+
+so I can see that now is when it is in the select element. And
+if I put my code in there I can get out using 
+"</option></select><script>alert(111)</script>
+
+so if I make a new storeId that is got a name that ends with
+that code I should have it.
+
+And it worked!
+
+There is another sink called innerHTML that doesn't allow
+script elements or svg onload events, but there are ways
+around this using elements like img or iframe
+for example:
+
+element.innerHTML='... <img src=1 onerror=alert(document.domain)> ...'
+
+so here's a lab about the innerHTML, it says:
+"It uses an innerHTML assignment, which changes the HTML 
+contents of a div element, using data from location.search. "
+
+it also says the vulnerability is in the search bar, so first impression
+is just close the div element and open an img element like in the
+example above, so something like this:
+
+</div><img src=1 onerror=alert(document.domain)></img>
+
+wow ok first try! Starting to get the hang of this
+
+dang there are a lot of these labs I'll have to come
+back to them at some point. I'll try one more and then call it a night
+
+LAB: DOM XSS in AngularJS expression with angle brackets 
+	and double quotes HTML-encoded
+
+this lab uses AngularJS which is something used in HTML
+to be able to evaluate expressions inside double curly
+braces as a JavaScript expression
+
+the vulnerability is in the search bar
+so I can see inspecting the page that everything in
+the body has the ng-app attribute, so shouldn't I just
+be able to call {{ alert(0) }} from the search bar, or
+wait, ok the code for the search looks like this:
+
+<input type="text" placeholder="Search the blog..." name="search">
+
+so does the input replace the name="search" field or where does it
+go? I'm not entirely sure, but if it goes in there, then I should
+write:
+
+">{{ alert(0) }} 
+
+hmm no that didn't work it just said 
+0 search results for '">'
+so I must be missing something.
+Maybe I need obfuscation, is that why the lab says
+HTML-encoded? Do I need to make the quotes and angle-bracket
+more sneaky?
+
+"> in html symbols is apparently &quot;&gt; so I'll try that
+at the start of the code
+
+&quot;&gt;{{ alert(0) }}
+
+still got the same result: 0 search results for '">'
+
+what about javascipt unicode
+
+\u0022\u003e{{ alert(0) }}
+
+0 search results for '\u0022\u003e'
+
+ok what if I put it all in double curly
+
+{{\u0022\u003e alert(0) }}
+
+0 search results for '{{\u0022\u003e alert(0) }'
+
+ok maybe I'm barking up the wrong tree I'm going to
+watch the beginning of one of the community solutions
+videos to get a hint and at least make sure I'm on the 
+right track
+
+dang ok the solution was givenright away and I was way off
+according to this guy, its done like this:
+
+{{ $eval.constructor('alert()')() }}
+
+ok that works but I definitely missed the part about
+$eval.constructor. I guess I'll watch the rest of the
+video and see if he explains it.
+
+ok I guess the $ means that eval is a method from AngularJS
+and AngularJS works by having certain functinos in its $scope
+
+there is a way to look up the $scope of an ng-app
+an example of $scope is like this:
+
+<body ng-app="myApp" ng-controller="myCtrl">
+	<p id="test"></p>
+	{{ firstName }}
+	{{ 1 + 1 }}
+	{{ $eval.constructor('alert()')() }}
+</body>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+	$scope.firstName = "Fifi";
+});
+</script>
+
+so this script defines the firstName property as being
+in scope but other things are in scope by default in angularJs
+because they are inherited, like $eval() is one
+
+so one way to check the scope of something is
+in the dev console angular,element(document.getElementBtId('test')).scope()
+
+and it will return the object that contains everything it has access to
+it contains object, properties, and in prototype it shows all the
+inherited things.
+
+Eg when an array is created in javascript it inherits all the
+array methods like .forEach() this comes from the prototype
+
+In this case these things are inherited from Angular
+
+so if you look at parent and then the prototype of THAT
+then you can see $eval in there. There is a whole list
+of functions there including $on which I guess the burp
+academy uses for its solution. Aparently any of these
+functions will work for this attack.
+
+this is true because there is a Function() contructor function
+for creating functions dynamically, for example:
+
+Function('alert()')();
+
+This creates and calls the function in one line.
+Thats why theres the extra () at the end
+
+so doing something like $on.constructor
+is using "the constructor data property of an Object instance
+returns a reference to the constructor function that created
+the instance object. Note that the value of this property is
+a reference to the function itself, not a string containing
+the function's name"
+
+so its not a method its a property that references the function's
+constructor. So its referencing function.Function()
+
+$on.constructor('console.log("hello world")');
+
+is the same as
+
+let myFunction = Function('console.log("hello world")');
+
+so really its using this way of referencing the constructor
+function, then passing the constructor a new function and
+then calling it on the same line
+
+so the payload was
+{{ $eval.constructor('alert()')() }}
+
+so nothing is actually being eval'd, its actually
+just using eval to get to the function contstructor
+and then using the last () calling it in the same line
+all surrounded by {{ }} because thats how angular wants it
+
+wow
+
+
+
+
+

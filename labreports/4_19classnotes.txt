@@ -1,0 +1,89 @@
+announcements:
+  submissions are open on canvas
+  in modules for each week should be submitted
+  in .pdf or plaintext
+  no office hours this week, instead come to class early or stay late
+  
+hacker mentality:
+  open-endedness can be jarring at first
+  it is normal for things to be open-ended
+    take good notes, ask the right questions
+    dont get stuck on a red herring
+    talk to your peers. It is a more social
+    endeavor than main programming
+
+if you are ahead on your homework you
+can work on other things:
+ CSRF
+ DOM-Based vulnerabilites
+ Deserialization
+ JWT attacks
+ w3challs.com web category & identifying unknown vulnerabilies in web security academy
+**these last ones are more difficult**
+(need to be able to identify unknown vulnerabilities) 
+
+went over some questions from lab2
+what is meant by "escaping shell metacharacters" is
+that basically a whitelist is a better strategy to defend
+than a blacklist because there are too many combinations
+of characters
+
+went over second to last lab and if it really needs
+the collaborator. The lab can be successful by triggering
+the lookup without needing burpsuite collaborator.
+Also, it is possible to set up your own DNS server
+and monitor the traffic on your own.
+
+question about the DNS lookup and exfiltration
+it doesn't have to be DNS in real life it can
+be any outside server.
+
+reminder that if you sign up for burp with your .edu
+email account you can get a free trial of the professional
+
+SQL Basics:
+Server Querey Language
+
+SQL is for querying databases. The databses can
+hold anything, files, pictures, executables, password hashes, login username password pairs
+
+for example 
+	a client can send a server
+
+	app.com/login?user=myuser&password=mypass
+
+	a username and passwrod with a GET request
+	and then the server hashes the password and
+	then compares the hash to the hashed password
+
+	SELECT password FROM users WHERE username='myuser'
+	AND password='adfsadfsad2#$@ASDq34' 
+
+SQL injection description:
+
+happens when when app doesnt sanitize user provided input
+techniques include using SQL tokens such as booleans
+wildcards, commends, logical AND/OR and URL/Hex encoded
+versions of the above tokens
+
+not all SQL injections use the same syntax
+
+for example
+
+	app.com/login?user=admin'OR1=1--&password=mypass
+
+	which makes
+
+	SELECT password FROM users WHERE username='admin'OR1=1--AND password='adfsadfsad2#$@ASDq34' 
+
+	in someversions of sql -- starts a comment
+
+        This gives every row in the table
+
+Bounty payouts for SQL injection can be very high
+although this bug is increasingly heard to find in the
+wild $500-$4k
+
+it still happens every now and then but not any more
+
+ 

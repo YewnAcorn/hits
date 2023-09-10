@@ -1,0 +1,235 @@
+
+
+push %ebp  ; puts the contents of ebp on the stack
+mov %esp, %ebp ; the location pointed to by esp is now also pointed to by ebp
+
+leave is the same as
+mov %ebp, %esp
+pop %ebp
+
+mov eax, 1
+mov ebx, 42
+int 0x80 ; interrupt 0x80 is system call, determined by eax, 1 means exit
+         ; value in ebx is exit status, 42 is for example
+
+sub ebx, 29 ; subtracts 29 from ebx in-place, ebx is now 13
+
+operation [operands,...]
+
+mov ebx, 123 ; ebx = 123
+mov eax, ebx ; eax = ebx
+add ebx, ecx ; ebx += ecx
+sub ebx, edx ; ebx -= edx
+mul ebx      ; eax *=ebx
+div edx      ; eax /= edx   mul and div always use eax as left operand
+
+ex2.asm
+
+global_start
+
+section .data
+	msg db "hellow world!", 0x0a
+        len equ $ - msg
+
+section .text
+_start:
+	mov eax, 4   ; sys_write system call
+	mov ebx, 1   : stdout file descriptor
+        mov ecx, msg ; bytes to write
+        mov edx, len ; number of bytes to write
+        int 0x80     ; perform system call
+        mov eax, 1   ; sys_exit system call
+        mov ebx, 0   ; exit status is 0
+        int 0x80
+
+the instruction pointer
+EIP
+location of execution
+
+unlike a register because you cant mov add sub etc
+changed by jump ops
+
+ex3.asm
+
+global _start
+
+section .text
+_start:
+	mov ebx, 42  ; exit status is 42
+        mov eax, 1   ; sys_exit system call
+	jmp skip     ; jump to skip label
+        mov ebx, 13  ; exit status is 13
+
+skip:
+	int 0x80
+
+this code will skip the line that moves 13 into ebx
+an unconditional jump, can also depend on condition
+another example:
+
+mov exc, 99  ; set scx to 99	
+mov ebx, 42  ; exit status is 42
+mov eax, 1   ; sys_exit system call
+cmp ecx, 100 ; compare ecx 100
+jl skip      ; jump if less than
+mov ebx, 13  ; exit status is 13
+
+skip:
+	int 0x80
+
+will skip again because 99<100
+will have exit value 42 instead of 13
+
+je ; jump if equal
+jne; jump not equal
+jg ; jump if greater
+jge; jump if greater or equal
+jl ; jump if less
+jle; jump if less or equal
+
+loopexample.asm
+
+mov ebx, 1  ; start ebx at 1
+mov ecx, 4  ; number of iterations
+
+label:
+	add ebx, ebx  ; double ebx
+        dec ecx       ; ecx -= 1
+        cmp ecx, 0    ; compare ecx with 0
+        jg label      ; jump to label if greater
+        mov eax, 1    ; system exit call
+        int 0x80
+
+
+section .data
+	addr db "yellow"
+
+section .text
+_start:
+	mov [addr], byte 'H'   ; moves data into that address
+        mov [addr+5], byte '!' 
+	mov eax, 4    ; sys_write system call
+        mov ebx, 1    ; stdout file descriptpr
+        mov ecx, addr ; bytes to write
+        mov edx, 6    ; number of bytes to write
+        int 0x80      ; perform system call
+        mov eax, 1    ; sys_exit system call
+        mov ebx, 0    ; exit status is 0
+        int 0x80
+
+prints Hello! instead of yellow
+how to write to sepcific parts of memory
+
+the stack
+
+push causes the stack pointer to decrement by 4
+and the value being pushed is written that location in memory
+why 4s? because its 32-bit and each integer is 32 bits or 4 bytes
+
+push 357
+
+is the same as
+
+sub esp, 4
+mov [esp], dword 357
+
+pop takes the value at the top of the stack
+and moves it into the eax register
+and adds 4 to esp (moving the stack down) 
+(old value is still there but it will get overwritten)
+
+pop eax
+
+is the same as
+
+mov eax, dword [esp]
+add esp, 4
+
+sub esp, 4   ; allocate 4 bytes on the stack
+mov [esp], byte 'H'
+mov [esp+1], byte 'e'
+mov [esp+2], byte 'y'
+mov [esp+3], byte '!'
+
+
+## Functions ##
+
+call operation
+pushes EIP to stack
+performs a jump to location specified
+these two actions allow us to jump and jump back
+the EIP is the return location
+
+call func
+mov eax, 1
+int 0x80
+
+func:
+	mov ebx, 42
+	pop eax;  because 'call' pushes the EIP onto the stack
+	jmp eax;  this is the way that returns work
+
+jumps back to mov eax, 1 because it actually
+pushes the address of the next instruction
+
+the ret operation does the pop/jmp combo in one move
+without needing the eax register
+
+how to use the stack in the function:
+use the ebp register
+
+func:
+	push ebp       ; save the old ebp (for nested calls)
+	mov ebp, esp   ; save the value of esp in ebp
+	sub esp, 2
+        mov [esp], byte 'h'
+        mov [esp+1], byte 'i'
+	mov esp, ebp  ; restore the value of esp so return will work
+			effectively de-allocating the space
+	pop ebp       ; restore old ebp (for nested calls)
+	ret           ; pops the stack and jumps to that location
+
+prologue: push ebp
+	  mov ebp, esp
+          sub esp, 2
+
+epilogue: mov esp, ebp
+          pop ebp
+          return
+
+so you're going through your code and you call a function
+and the first thing you do is push the next eip to the stack
+then you jump to the function
+now in the function the first thing you do is push the ebp
+to the stack to save it, then move the current value of esp
+into ebp so the base of the stack is saved and the esp stack
+pointer can be used in the function, then when its all done
+you move the value of ebp back in to esp so now its pointing
+to the bottom again and theres the old preserved ebp in there
+which can get popped back in to ebp and then the top of the
+stack is the eip that got originally pushed with the function call
+and the ret operation pops that off and jumps to it.
+
+so the return address is the first thing on the stack
+when a function is called
+
+low           ..
+            .. 
+           ..
+stack     local function work
+          new base pointer
+          old base pointer
+high      return address
+
+
+
+arguments get pushed onto the stack
+so they are below the return address
+(higher memory value)
+at [ebp+8] and higher at steps of 4
+
+functions are pushed in reverse order
+need to be removed after function is done
+or stack can waste memory
+
+

@@ -1,0 +1,184 @@
+arter Gunderson
+5 Week Lab
+AppSec
+
+user = labXC
+password = labXXstart
+
+ok learning about radare2
+for reverse engineering: contains: debugger, disassembler, plugins
+and extensive API
+
+commands:
+aaa: analyze executable, do this first, names
+     referenced memory locations etc
+iT:  list imports
+is:  list symbols (~ greps output, try is~main)
+s:   seeks to memory location, takes symbol names (s main)
+pd:  print disassembly (try pdf@main)
+axt: find data/ code references for given address (try axt@main)
+tab: autocomplete like in CL
+
+
+cmu bomb lab - upload this to gameadmin's home directory on the MBE VM and analyze it there. you may also consider using a reversing engineering framework/disassembler like radare or ghidra.
+
+ok step one use sftp to get the cmubomb from my non-vm
+to the vm. ran into confusion only because I didn't realize
+I just needed to use sudo sftp, but that was an easy fix
+
+now I have the bomb ok and I can run it and if I do something
+wrong it will blow up and print BOOM!!! and exit the program
+
+ok and I did r2 cmubomb and it says --SHALL WE PLAY A GAME?
+is that Joshua? (*-*) yes lets play defuse the bomb
+
+aaa to analyze
+is is to list symbols
+ok thats a lot of symbols, I'm just gonna read through
+for clues, see if anything catches my eye
+
+potential clues: read_line   is probably
+part of whatever is judging to blow up
+the bomb or not, same with
+strings_not_equal
+
+so if I axt those names what do I get
+
+Invalid address (read_line)
+
+ok still have some learning to do about how
+r2 works
+
+I think I'll go rewatch the lecture where
+Dee runs through this a little bit to
+get a better idea how to move around in
+this environment
+
+
+o ok if I pipe the output into less
+I can search thru it with / like in vim
+
+I see ok, and to use axt to find read_line
+I need to do axt@sym.read_line and that
+shows all the places it gets called
+
+
+looks like it gets called 7  times
+how many phases to disarm the bomb?
+6, only off by one, probably related
+
+I found the way to search for strings its iz
+or izz or for a specific string / Welcome
+or replace Welcome with a string
+
+for example izz~Welcome also works
+
+ok so as far as my line of thinkig was going
+around read_line what I can do is seek to
+that address using s and then pd to print
+dissasembly and see what I find
+
+ok looks like some strings that come up
+when the phases are completed so, I think
+I'm on to something, if i can just find
+out what string they're comparing to
+its probably the string I need to write
+
+it could be in the sym.phase_1 call or
+it could be something else
+
+dang there is a lot to keep track of
+already I understand why hackers in movies
+always have 10 screens going at once now
+
+ok I think I found something. So I did
+seek to the address of phase_1 and then PD
+and here's some mysterious string "Public speaking is very easy."
+
+so maybe that's the input that diffuses phase1?
+I'll test it
+!!! it worked! B-)
+
+lol then I wanted to ctrl-c out and it had
+a funny line about it before it let me quit
+
+so now can I just do the same technique for
+the next phases?
+
+hmm ok maybe not so easy
+
+ok here's something, a call to sym.read_six_numbers
+
+maybe the password for this phase is some sequence
+of numbers
+
+hmm or idk what is this string here: "ELF..."
+maybe thats it? Nope
+
+its gonna be some math or something I bet I
+gotta pay attention to what the registers are
+doing
+
+ok we worked on it in class together and
+made some progress. Looked into a variable
+using gdb and saw it wasnt the one I was looking for
+
+Need to keep looking I think I'm close
+
+something to do with the read_six_numbers function
+need to find out what arguments it gets passed
+how it determines those numbers
+and how to read them for myself
+
+
+well I've been combing through phase_2 in
+gdb and radare2 for over 8 hours now and I
+have no idea what I'm looking for and I need
+to go back and learn more assembly and 
+actually learn how to use radare2
+
+ok watched a 6 part series on assembly
+explained the entire concept of registers
+and walked through each instruction out
+loud to my cat, explaining how it works
+
+I'm realizing that one major problem I had
+with conceptualizing this stuff was that
+I was looking for values or literals when
+really its almost like I need to invert my
+vision and look for the empty space that is
+getting allocated on the stack by moving the
+pointer. Then from that its possible to sort of
+fill in the blanks of what goes there more easily
+
+now I'm watching a multipart series on how radare works
+which has so much more going on than I thought
+
+you can enter command mode with : like in vim
+press p to cycle through the differnet views
+press P to cycle back
+afl analyze function list (needs aaa first)
+press enter after seeking to a call to see where the call jumps to
+press u to go back after that
+
+axt cross referencing is useful to see everywhere a function
+   is called in a program 
+axf is to see when things are called from that function
+
+there is also rabin2 can be used outside of radare
+to do a lot of the same things like rabin2 -zz ./cmubomb will
+print all the strings
+
+here is also rafind2 to find byte patterns in files
+this way you can see what strings are findable in a program
+grep doesnt always get all the strings cause its not made to
+search thru binary files.
+
+or you could do strings ./cmubomb | grep phase_2
+but its not as versatile
+
+ok now that I know more about assembly
+and radare2 I'm going to go back in to cmubomb
+and see what I can see about phase_2
+
+

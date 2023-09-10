@@ -1,0 +1,18 @@
+Carter Gunderson
+2 week lab report
+
+
+This week we did labs on file traversal and
+OS command injection. These were labs on the
+burp academy site. Doing these labs I learned
+about exploiting vulnerabilities in directory
+traversal and os injection. I also learned how
+to use a few of the features on burp suite.
+
+I also learned about how to use the network
+tab on the inspector tool on firefox to copy
+a curl command and use that to manually get 
+the data or how to use the 'edit and resend'
+option as well
+
+

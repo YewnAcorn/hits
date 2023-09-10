@@ -1,0 +1,130 @@
+disassembler
+
+ida community version
+https://hex-rays.com/ida-free/
+
+ghirdra
+https://ghidra-sre.org/
+
+binary vulnerability analysis
+very profitable
+
+one remote code execution bug in chrome
+is worth $500,000
+
+very intimate level of understanding of low level
+parsing. Like magic and extremely rewarding
+
+binary reverse engineering is popular for malware
+analysis but also for producing competing products
+and good to know to protect your intelectual property
+using unsupported tools or rewrite them
+liberating devices, jailbreaking consoles and smartphones
+own your own hardware
+
+understand in linucx ssh scp sftp ls cd pwd vim man apropos
+cat less mv cp rm | > >> make gcc
+
+tldp.org = bash scrips and documentation for linux stuff
+
+understand c and unix programming environment
+pointers typdef stucs functions function pointers and
+malloc/free
+
+unix c programming environment:
+open read write execve and fork
+
+compile c code in the commmand line with gcc
+
+from src to elf Executable Linkable Format
+
+    compile       assemble         link
+src --------> asm --------> object ------> elf
+                                  | 
+                                  |
+                                 libs 
+
+what is gcc doing?
+
+souce code               -> internal representation    -> back end
+   |                                 |                     |
+abstract syntax tree       register transfer language
+
+
+
+godbolt.org
+for seeing c and assembly side by side
+
+
+x86 regs
+
+eip is the instruction pointer
+contains the address of the next instruction
+to be executed
+
+eax ebx ecs and edx are general purpose registers
+often used for various operations and function calls
+
+eflags are flag buts often used in condition instructions
+zf is zero flag set when result of operation equals zero
+SF is a sign flag set when the result of an operation is negative
+
+notice the x86 calling convention
+it can call stuff in reverse
+of the order the arguments appear in
+
+the loader parses the elf file and
+maps the file contents into the
+appropriate memory segments
+
+heap is allocated data usually
+of variablesize, accessable to
+threads and shared libraries 
+malloc/free
+
+stack is used for local variables and
+arguments, environment variables and
+function call metadata
+
+.rodata is readonly data used for
+immutable values
+
+.data segment is for initialized
+global variables
+
+stack grows from high addess to low
+heap is opposite
+
+
+.text is at the lowest, furthest
+from the stack
+
+the stack
+caller pushes arguments and eip onto the stack
+callee pushes ebp and local variables onto the stack
+
+caller must save instruction pointer to the stack
+so that callee can return control of the cpu to the caller
+
+callee mus stave stack frame before pushing local variables
+to the stack so caller  can retrieve its local variables
+
+various cli tools
+file -print file format information
+strings - print the printable strings from a file
+xxd - view hex encoded bytes
+readelf print information from an elf's headers
+ldd- print shared object dependencies
+onjdump disassemble the machien code from
+an elf
+gdb gnu debugger perform dynamic analysis on
+ running process
+strace & ltrace system call/library function trace process
+
+reversing frameworks
+radare2
+ida
+ghidra - open source
+
+research stuxnet
+

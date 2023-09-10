@@ -1,0 +1,19 @@
+Carter Gunderson
+1 week lab report
+
+This week we started by going over the basics
+of how flask can serve up html pages and interact
+with a database. The stuff we will be doing in the
+future is based on knowing some of this stuff
+
+I actually did this lab about 3 or 4 times because
+when I would come back my virtual machine would be
+frozen and when I restarted it all my work was done
+
+but eventually I got the whole thing going. I was
+glad to learn about template inheritance. I am making
+some flask websites for fun in my free time but I didnt
+know about html inheritance and now that I do I have saved
+a lot of time
+
+

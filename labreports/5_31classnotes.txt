@@ -1,0 +1,75 @@
+to keep stdin from closing on you after starting a shell
+  python -c 'payload here'; cat -;) | ./labXX
+
+DEP & ROP
+
+Data Execution Prevention
+this is why things had to
+be compiled to be vulnerable
+
+-z execstack -fno_stack_protector
+
+stack canaries are hashed 4 byte values
+on the stack between variables
+and return address
+
+checked at epilogue, before it
+uses saved return address, checks
+to see if its been modified, then
+knows stack as been corrupted, exit
+program
+
+ASLR
+
+stack canaries
+
+DEP removes Xecute permissions
+from the stack
+
+gcc -execstack turns it off
+
+ROP
+return oriented programming
+
+chaining together returns
+to make 'gadgets'
+
+a sequence of meaningful instructions
+typically followed by a return
+instruction
+
+usually multiple gadgets are chained
+together to compute malicious actions
+like shellcode
+
+example gadgets
+
+xor eax, eax
+ret
+
+pop ebx
+pop eax
+ret
+
+add eax, ebx
+ret
+
+its almost always
+possible to make a ROP chain
+for a piece of shellcode
+
+python -c 'print "A" * 1 + "b" * 4' | ./a.out
+
+ulimit -c unlimited
+to get the core dunped
+
+then bt (backtrace) in gdb and
+see if you can see the b's in the
+stack
+
+ropgadget ./a,out gives the gadgets
+
+gcc -static -o static.out ./rop_exit.c -fno-stack-protector
+
+
+

@@ -1,0 +1,156 @@
+Carter Gunderson
+final report
+
+Ok I am mostly caught up now I will
+take a look at some of this stuff
+on the skidctf website 
+
+I saw there is something called
+shell garden which sounds fun 
+
+I found it in the higher-level pwnable
+section, probably too advanced for me
+download it. Looks like an executable
+that I dont have permission for. 
+
+Can I change it so I can run it?
+
+chmod +x ./shellgarden 
+
+oh its giving me trouble still
+
+well this one is probly too diffcult
+for my current skill level anyway
+
+Lets see what else there is
+
+Maybe I can finish the one I
+was stuck on from the midterm
+
+I didnt take notes for the midterm
+unfortunately so I'll try to remember
+what I did and include that here:
+
+---midterm memories report---
+
+oh yeah the web hacking stuff
+so I did some of those using SQL
+and other stuff. I can't really remember now
+my memories from then are all mixed up
+
+but I remember I was working on unlock me
+
+thats right and I had added the salt and 
+made a loop to try all the combinations
+but it still didnt work. 
+
+---------
+
+Actually maybe I'd rather check out one of the reverse
+engineering parts I like the structure that
+assembly code gives it
+
+lets see there is one called u-tool
+
+ok I think I'll have to work on this on
+the VM because mac OS has some beef with GDB
+that I dont want to resolve right now, I thought
+I did this whole process to calm it down before
+but its still unhappy so I'll just go to the VM
+
+ok now I have to lower the mac OS security
+for a second so I can let the VM sftp into it
+
+ok I got the file on the VM now I'll look
+at the assembly in r2
+
+looks like its got an and with the stack pointer
+and 0xfffffff0
+
+and esp, 0xfffffff0
+
+ok I see its clearing the last 4 bytes
+of the stack to work on a smaller scale, perhaps
+so it only goes from 0-15 (0x0 to 0xf)
+
+push dword [ecx - 4]
+
+ok now the stack has 4 more bytes on it and
+they are from whatever is the addess at
+ecx-4? 
+
+I should open this in gdb and see whats going on
+but my guessis maybe this is the command line
+arguemnt?
+
+When I ran the executable by itself it 
+said 
+
+usage: ./u-tool <flag>
+
+so the flag is the command line arg
+so maybe thats what gets loaded into ecx
+
+I will run it with ABCD in gdb to see
+actuall use r2
+
+strace, ltrace
+dynamic hooks
+uses the file dynamic linker at compile time
+can force your library to get included first
+and can call the actual 
+
+ok so going through r2 I see that there is something
+in a string called str.i_still_think_ur_a_tool_
+and there is a comment that says
+flag{i_still_think_ur_a_tool_}
+I cant remember my password tho 
+so I'll make a new account yewnAcorn2
+
+now I'll try the next one called squeeze
+
+ok this one starts with an assembly command I
+havent seen yet:
+
+arpl word [eax], ax
+
+from the internet:
+
+Compares the RPL fields of two segment selectors. The first operand (the destination operand) contains one segment selector and the second operand (source operand) contains the other. (The RPL field is located in bits 0 and 1 of each operand.) If the RPL field of the destination operand is less than the RPL field of the source operand, the ZF flag is set and the RPL field of the destination operand is increased to match that of the source operand. Otherwise, the ZF flag is cleared and no change is made to the destination operand. (The destination operand can be a word register or a memory location; the source operand must be a word register.)
+
+not entirely sure what that means but hopefully thats ok, I'm just gonna
+vaguely understand that right now and come back to it if I cant find
+any more clues further on in the instructions
+
+
+ok when I run the program it puts out some weird buggy looking messages
+but they have some clues I see the word flag in there but I'll have to
+look further
+
+ok if I run it with python it gives me a more legible output
+
+usage: squeeze.pyc <passphrase>
+
+going thru the assembly, its doing a lot of adding
+bytes to different registers and things like that
+but no clues or anything yet
+
+
+ok turns out there is such a thing as a decompiler
+and I can get it on my local machine because
+the VM wont let me use pip install uncompyle6
+
+so I got it and uncompyled it and wow now its
+just a python file
+
+so I can remove the part of the function that asks 
+me for input and just have it print the answer
+and now it wont work on my local machine because
+its python2 so I'll move it back to the VM
+and I can run it and it puts out the flag
+
+flag{d0es_ur_pyth0n_c0mpile?}
+
+
+
+
